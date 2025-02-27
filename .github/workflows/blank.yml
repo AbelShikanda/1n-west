@@ -94,10 +94,10 @@ jobs:
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa_1nwest
+          chmod 600 ~/.ssh/id_rsa_1nwest
           eval $(ssh-agent -s)
-          ssh-add -q ~/.ssh/id_rsa
+          ssh-add -q ~/.ssh/id_rsa_1nwest
           ssh-keyscan -p "${{ secrets.SSH_SITES_PORT }}" -H "${{ secrets.SSH_SITES_IP }}" >> ~/.ssh/known_hosts
 
       - name: upload
@@ -293,10 +293,10 @@ jobs:
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa_1nwest
+          chmod 600 ~/.ssh/id_rsa_1nwest
           eval $(ssh-agent -s)
-          ssh-add -q ~/.ssh/id_rsa
+          ssh-add -q ~/.ssh/id_rsa_1nwest
           ssh-keyscan -p "${{ secrets.SSH_SITES_PORT }}" -H "${{ secrets.SSH_SITES_IP }}" >> ~/.ssh/known_hosts
 
       - name: run-befor-hooks
@@ -326,10 +326,10 @@ jobs:
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa_1nwest
+          chmod 600 ~/.ssh/id_rsa_1nwest
           eval $(ssh-agent -s)
-          ssh-add -q ~/.ssh/id_rsa
+          ssh-add -q ~/.ssh/id_rsa_1nwest
           ssh-keyscan -p "${{ secrets.SSH_SITES_PORT }}" -H "${{ secrets.SSH_SITES_IP }}" >> ~/.ssh/known_hosts
 
       - name: run-activate-release
@@ -366,10 +366,10 @@ jobs:
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa_1nwest
+          chmod 600 ~/.ssh/id_rsa_1nwest
           eval $(ssh-agent -s)
-          ssh-add -q ~/.ssh/id_rsa
+          ssh-add -q ~/.ssh/id_rsa_1nwest
           ssh-keyscan -p "${{ secrets.SSH_SITES_PORT }}" -H "${{ secrets.SSH_SITES_IP }}" >> ~/.ssh/known_hosts
 
       - name: run-migrations
@@ -411,10 +411,10 @@ jobs:
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa_1nwest
+          chmod 600 ~/.ssh/id_rsa_1nwest
           eval $(ssh-agent -s)
-          ssh-add -q ~/.ssh/id_rsa
+          ssh-add -q ~/.ssh/id_rsa_1nwest
           ssh-keyscan -p "${{ secrets.SSH_SITES_PORT }}" -H "${{ secrets.SSH_SITES_IP }}" >> ~/.ssh/known_hosts
 
       - name: run-after-hooks
@@ -459,10 +459,10 @@ jobs:
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa_1nwest
+          chmod 600 ~/.ssh/id_rsa_1nwest
           eval $(ssh-agent -s)
-          ssh-add -q ~/.ssh/id_rsa
+          ssh-add -q ~/.ssh/id_rsa_1nwest
           ssh-keyscan -p "${{ secrets.SSH_SITES_PORT }}" -H "${{ secrets.SSH_SITES_IP }}" >> ~/.ssh/known_hosts
 
       - name: run-clean-up
