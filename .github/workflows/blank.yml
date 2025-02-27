@@ -4,7 +4,7 @@ name: CI
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "master"
+  # Triggers the workflow on push or pull request events but only for the "master" branch
   push:
     branches: ["master"]
   pull_request:
@@ -94,10 +94,10 @@ jobs:
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa_1nwest
-          chmod 600 ~/.ssh/id_rsa_1nwest
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
           eval $(ssh-agent -s)
-          ssh-add -q ~/.ssh/id_rsa_1nwest
+          ssh-add -q ~/.ssh/id_rsa
           ssh-keyscan -p "${{ secrets.SSH_SITES_PORT }}" -H "${{ secrets.SSH_SITES_IP }}" >> ~/.ssh/known_hosts
 
       - name: upload
@@ -135,7 +135,7 @@ jobs:
           password: ${{ secrets.FTP_SITES_PASSWORD }}
           port: ${{ secrets.SSH_SITES_PORT }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          envs: GITHUB_SHA,SOURCE_CSS_DIR,SOURCE_JS_DIR,DEST_CSS_DIR,DEST_JS_DIR,DEST_PARENT_DIR,1N_WEST_DIR,SOURCE_ADMIN_DIR,DEST_1N_WEST_DIR,DEST_ADMIN_DIR
+          envs: GITHUB_SHA,SOURCE_CSS_DIR,SOURCE_JS_DIR,DEST_CSS_DIR,DEST_JS_DIR,DEST_PARENT_DIR,1N_WEST_DIR,SOURCE_ADMIN_DIR,DEST_1N_WEST_DIR,DEST_ADMIN_DIR,IMAGES,DEST_IMAGES,FONTS,DEST_FONTS
           script: |
             mkdir -p "/home/ozkrwfgx/1nwest/release/${GITHUB_SHA}"
             tar xzf /home/ozkrwfgx/1nwest/artifacts/${GITHUB_SHA}.tar.gz -C "/home/ozkrwfgx/1nwest/release/${GITHUB_SHA}"
@@ -222,7 +222,7 @@ jobs:
                     exit 1
                 fi
             else
-                echo "asset directory does not exist in the source."
+                echo "images directory does not exist in the source."
             fi
             # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             if [ -d "$1N_WEST_DIR" ]; then
@@ -241,7 +241,7 @@ jobs:
                     exit 1
                 fi
             else
-                echo "asset directory does not exist in the source."
+                echo "1n-west directory does not exist in the source."
             fi
             # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             # if [ -d "$SOURCE_ADMIN_DIR" ]; then
@@ -265,21 +265,21 @@ jobs:
             # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             # ++++++++++++++++++++++++++++++++++++++++++++++First time++++++++++++++++++++++++++++++++++++++++++++++
             # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            mv -f "/home/ozkrwfgx/1nwest/release/${GITHUB_SHA}/public/.htaccess" "/home/ozkrwfgx/public_html"
-            mv -f "/home/ozkrwfgx/1nwest/release/${GITHUB_SHA}/public/favicon.ico" "/home/ozkrwfgx/public_html"
-            mv -f "/home/ozkrwfgx/1nwest/release/${GITHUB_SHA}/public/index.php" "/home/ozkrwfgx/public_html"
-            mv -f "/home/ozkrwfgx/1nwest/release/${GITHUB_SHA}/public/robots.txt" "/home/ozkrwfgx/public_html"
-            mv -f "/home/ozkrwfgx/1nwest/release/${GITHUB_SHA}/public/mix-manifest.json" "/home/ozkrwfgx/public_html"
-            mv -f "/home/ozkrwfgx/1nwest/release/${GITHUB_SHA}/public/web.config" "/home/ozkrwfgx/public_html"
+            # mv -f "/home/ozkrwfgx/1nwest/release/${GITHUB_SHA}/public/.htaccess" "/home/ozkrwfgx/public_html"
+            # mv -f "/home/ozkrwfgx/1nwest/release/${GITHUB_SHA}/public/favicon.ico" "/home/ozkrwfgx/public_html"
+            # mv -f "/home/ozkrwfgx/1nwest/release/${GITHUB_SHA}/public/index.php" "/home/ozkrwfgx/public_html"
+            # mv -f "/home/ozkrwfgx/1nwest/release/${GITHUB_SHA}/public/robots.txt" "/home/ozkrwfgx/public_html"
+            # mv -f "/home/ozkrwfgx/1nwest/release/${GITHUB_SHA}/public/mix-manifest.json" "/home/ozkrwfgx/public_html"
+            # mv -f "/home/ozkrwfgx/1nwest/release/${GITHUB_SHA}/public/web.config" "/home/ozkrwfgx/public_html"
             # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             # ++++++++++++++++++++++++++++++++++++++++++++++later time++++++++++++++++++++++++++++++++++++++++++++++
             # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            # rm -rf /home/ozkrwfgx/1nwest/release/${GITHUB_SHA}/public/.htaccess
-            # rm -rf /home/ozkrwfgx/1nwest/release/${GITHUB_SHA}/public/favicon.ico
-            # rm -rf /home/ozkrwfgx/1nwest/release/${GITHUB_SHA}/public/index.php
-            # rm -rf /home/ozkrwfgx/1nwest/release/${GITHUB_SHA}/public/robots.txt
-            # rm -rf /home/ozkrwfgx/1nwest/release/${GITHUB_SHA}/public/mix-manifest.json
-            # rm -rf /home/ozkrwfgx/1nwest/release/${GITHUB_SHA}/public/web.config
+            rm -rf /home/ozkrwfgx/1nwest/release/${GITHUB_SHA}/public/.htaccess
+            rm -rf /home/ozkrwfgx/1nwest/release/${GITHUB_SHA}/public/favicon.ico
+            rm -rf /home/ozkrwfgx/1nwest/release/${GITHUB_SHA}/public/index.php
+            rm -rf /home/ozkrwfgx/1nwest/release/${GITHUB_SHA}/public/robots.txt
+            rm -rf /home/ozkrwfgx/1nwest/release/${GITHUB_SHA}/public/mix-manifest.json
+            rm -rf /home/ozkrwfgx/1nwest/release/${GITHUB_SHA}/public/web.config
             # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             rm -rf /home/ozkrwfgx/1nwest/release/${GITHUB_SHA}/public/
             # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -293,10 +293,10 @@ jobs:
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa_1nwest
-          chmod 600 ~/.ssh/id_rsa_1nwest
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
           eval $(ssh-agent -s)
-          ssh-add -q ~/.ssh/id_rsa_1nwest
+          ssh-add -q ~/.ssh/id_rsa
           ssh-keyscan -p "${{ secrets.SSH_SITES_PORT }}" -H "${{ secrets.SSH_SITES_IP }}" >> ~/.ssh/known_hosts
 
       - name: run-befor-hooks
@@ -326,10 +326,10 @@ jobs:
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa_1nwest
-          chmod 600 ~/.ssh/id_rsa_1nwest
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
           eval $(ssh-agent -s)
-          ssh-add -q ~/.ssh/id_rsa_1nwest
+          ssh-add -q ~/.ssh/id_rsa
           ssh-keyscan -p "${{ secrets.SSH_SITES_PORT }}" -H "${{ secrets.SSH_SITES_IP }}" >> ~/.ssh/known_hosts
 
       - name: run-activate-release
@@ -366,10 +366,10 @@ jobs:
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa_1nwest
-          chmod 600 ~/.ssh/id_rsa_1nwest
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
           eval $(ssh-agent -s)
-          ssh-add -q ~/.ssh/id_rsa_1nwest
+          ssh-add -q ~/.ssh/id_rsa
           ssh-keyscan -p "${{ secrets.SSH_SITES_PORT }}" -H "${{ secrets.SSH_SITES_IP }}" >> ~/.ssh/known_hosts
 
       - name: run-migrations
@@ -411,10 +411,10 @@ jobs:
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa_1nwest
-          chmod 600 ~/.ssh/id_rsa_1nwest
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
           eval $(ssh-agent -s)
-          ssh-add -q ~/.ssh/id_rsa_1nwest
+          ssh-add -q ~/.ssh/id_rsa
           ssh-keyscan -p "${{ secrets.SSH_SITES_PORT }}" -H "${{ secrets.SSH_SITES_IP }}" >> ~/.ssh/known_hosts
 
       - name: run-after-hooks
@@ -459,10 +459,10 @@ jobs:
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa_1nwest
-          chmod 600 ~/.ssh/id_rsa_1nwest
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
           eval $(ssh-agent -s)
-          ssh-add -q ~/.ssh/id_rsa_1nwest
+          ssh-add -q ~/.ssh/id_rsa
           ssh-keyscan -p "${{ secrets.SSH_SITES_PORT }}" -H "${{ secrets.SSH_SITES_IP }}" >> ~/.ssh/known_hosts
 
       - name: run-clean-up
