@@ -105,6 +105,9 @@
 
     <!-- Main JS -->
     <script src="{{ asset('1n-west/js/main.js') }}"></script>
+
+    <!-- Import external TEST JavaScript file -->
+    <script type="module" src="{{ asset('1n-west/js/test.js') }}"></script>
 </body>
 
 </html>
