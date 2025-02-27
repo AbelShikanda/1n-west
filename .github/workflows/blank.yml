@@ -116,14 +116,14 @@ jobs:
 
           SOURCE_CSS_DIR: /home/ozkrwfgx/1nwest/release/${{github.sha}}/public/css
           SOURCE_JS_DIR: /home/ozkrwfgx/1nwest/release/${{github.sha}}/public/js
-          1N_WEST_DIR: /home/ozkrwfgx/1nwest/release/${{github.sha}}/public/1n-west
+          N_WEST_DIR: /home/ozkrwfgx/1nwest/release/${{github.sha}}/public/1n-west
           IMAGES: /home/ozkrwfgx/1nwest/release/${{github.sha}}/public/images
           FONTS: /home/ozkrwfgx/1nwest/release/${{github.sha}}/public/fonts
           # SOURCE_ADMIN_DIR: /home/ozkrwfgx/1nwest/release/${{github.sha}}/public/admin
 
           DEST_CSS_DIR: /home/ozkrwfgx/public_html/css
           DEST_JS_DIR: /home/ozkrwfgx/public_html/js
-          DEST_1N_WEST_DIR: /home/ozkrwfgx/public_html/1n-west
+          DEST_N_WEST_DIR: /home/ozkrwfgx/public_html/1n-west
           DEST_IMAGES: /home/ozkrwfgx/public_html/images
           DEST_FONTS: /home/ozkrwfgx/public_html/fonts
           # DEST_ADMIN_DIR: /home/ozkrwfgx/public_html/admin
@@ -135,7 +135,7 @@ jobs:
           password: ${{ secrets.FTP_SITES_PASSWORD }}
           port: ${{ secrets.SSH_SITES_PORT }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          envs: GITHUB_SHA,SOURCE_CSS_DIR,SOURCE_JS_DIR,DEST_CSS_DIR,DEST_JS_DIR,DEST_PARENT_DIR,1N_WEST_DIR,SOURCE_ADMIN_DIR,DEST_1N_WEST_DIR,DEST_ADMIN_DIR,IMAGES,DEST_IMAGES,FONTS,DEST_FONTS
+          envs: GITHUB_SHA,SOURCE_CSS_DIR,SOURCE_JS_DIR,DEST_CSS_DIR,DEST_JS_DIR,DEST_PARENT_DIR,N_WEST_DIR,SOURCE_ADMIN_DIR,DEST_N_WEST_DIR,DEST_ADMIN_DIR,IMAGES,DEST_IMAGES,FONTS,DEST_FONTS
           script: |
             mkdir -p "/home/ozkrwfgx/1nwest/release/${GITHUB_SHA}"
             tar xzf /home/ozkrwfgx/1nwest/artifacts/${GITHUB_SHA}.tar.gz -C "/home/ozkrwfgx/1nwest/release/${GITHUB_SHA}"
@@ -225,17 +225,17 @@ jobs:
                 echo "images directory does not exist in the source."
             fi
             # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            if [ -d "$1N_WEST_DIR" ]; then
-                if [ -d "$DEST_1N_WEST_DIR" ]; then
-                    rm -rf "$DEST_1N_WEST_DIR"
+            if [ -d "$N_WEST_DIR" ]; then
+                if [ -d "$DEST_N_WEST_DIR" ]; then
+                    rm -rf "$DEST_N_WEST_DIR"
                     if [ $? -ne 0 ]; then
                         echo "Failed to remove the destination asset directory."
                         exit 1
                     fi
                 else
-                    echo "asset directory does not exist in the destination."
+                    echo "1n-west directory does not exist in the destination."
                 fi
-                mv "$1N_WEST_DIR" "$DEST_PARENT_DIR"
+                mv "$N_WEST_DIR" "$DEST_PARENT_DIR"
                 if [ $? -ne 0 ]; then
                     echo "Failed to move the asset directory from source to destination."
                     exit 1
@@ -440,7 +440,7 @@ jobs:
             php artisan cache:clear
             php artisan route:clear
             php artisan route:cache
-            php artisan blade:update
+            # php artisan blade:update
 
   # Runing cleanup
   clean-up:
