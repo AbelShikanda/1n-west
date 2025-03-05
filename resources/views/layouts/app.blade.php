@@ -29,7 +29,7 @@
     <meta name="twitter:card" content="" />
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link rel="shortcut icon" href="favicon.ico" />
+    <!-- <link rel="shortcut icon" href="favicon.ico" /> -->
 
     <!-- Favicons -->
     <link href="{{ asset('1n-west/images/logo.png?v=2') }}" rel="icon">
