@@ -12,17 +12,17 @@
                                         <h1>New House in Nairobi, Kenya</h1>
                                         <h2 class="price">Ksh 70,000</h2>
                                         <p>
-                                            Looking for a comfortable and well-located home? This 3-bedroom, 
-                                            2-bathroom house is available for rent in a quiet and secure neighborhood
+                                            This 3-bedroom, 2-bathroom house is available for 
+                                            rent in a quiet and secure neighborhood
                                         </p>
                                         <p class="details">
-                                            <span>Spacious living and dining area with natural lighting</span>
+                                            <span>Spacious living and dining</span>
                                             <span>4 Bedrooms</span>
                                             <span>3 Bathrooms</span>
                                             <span>Private parking</span>
                                         </p>
                                         <p>
-                                            <a class="btn btn-primary btn-lg" href="#">Learn More</a>
+                                            <a class="btn btn-primary btn-lg" href="{{ route('underConstruction') }}">Learn More</a>
                                         </p>
                                     </div>
                                 </div>
@@ -40,17 +40,17 @@
                                         <h1>New House in Nairobi, Kenya</h1>
                                         <h2 class="price">Ksh 30,000<h2>
                                                 <p>
-                                            Looking for a comfortable and well-located home? This 3-bedroom, 
-                                            2-bathroom house is available for rent in a quiet and secure neighborhood
+                                            This 3-bedroom, 2-bathroom house is available for 
+                                            rent in a quiet and secure neighborhood
                                                 </p>
                                                 <p class="details">
-                                                    <span>Spacious living and dining area with natural lighting</span>
+                                                    <span>Spacious living and dining</span>
                                                     <span>4 Bedrooms</span>
                                                     <span>3 Bathrooms</span>
                                                     <span>Private parking</span>
                                                 </p>
                                                 <p>
-                                                    <a class="btn btn-primary btn-lg" href="#">Learn More</a>
+                                                    <a class="btn btn-primary btn-lg" href="{{ route('underConstruction') }}">Learn More</a>
                                                 </p>
                                     </div>
                                 </div>
@@ -68,17 +68,17 @@
                                         <h1>New House in Nairobi, Kenya</h1>
                                         <h2 class="price">Ksh 50,000</h2>
                                         <p>
-                                            Looking for a comfortable and well-located home? This 3-bedroom, 
-                                            2-bathroom house is available for rent in a quiet and secure neighborhood
+                                            This 3-bedroom, 2-bathroom house is available for 
+                                            rent in a quiet and secure neighborhood
                                         </p>
                                         <p class="details">
-                                            <span>Spacious living and dining area with natural lighting</span>
+                                            <span>Spacious living and dining</span>
                                             <span>4 Bedrooms</span>
                                             <span>3 Bathrooms</span>
                                             <span>Private parking</span>
                                         </p>
                                         <p>
-                                            <a class="btn btn-primary btn-lg" href="#">Learn More</a>
+                                            <a class="btn btn-primary btn-lg" href="{{ route('underConstruction') }}">Learn More</a>
                                         </p>
                                     </div>
                                 </div>
