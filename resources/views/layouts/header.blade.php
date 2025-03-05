@@ -9,16 +9,16 @@
                 <ul class="sf-menu" id="fh5co-primary-menu">
                     <li class="{{ Request::is('/') ? 'active' : '' }}"><a href="{{ route('home') }}">Home</a></li>
                     <li class="{{ Request::is('properties*') ? 'active' : '' }}">
-                        <a href="{{ route('properties') }}" class="fh5co-sub-ddown">Properties</a>
+                        <a href="{{ route('properties') }}" class="fh5co-sub-ddown">Apartments</a>
                         <ul class="fh5co-sub-menu">
-                            <!-- <li><a href="#">Family</a></li>
-                            <li><a href="#">CSS3 &amp; HTML5</a></li>
-                            <li><a href="#">Angular JS</a></li>
-                            <li><a href="#">Node JS</a></li>
-                            <li><a href="#">Django &amp; Python</a></li> -->
+                            <li><a href="{{ route('underConstruction') }}">Family</a></li>
+                            <!-- <li><a href="{{ route('underConstruction') }}">CSS3 &amp; HTML5</a></li> -->
+                            <!-- <li><a href="{{ route('underConstruction') }}">Angular JS</a></li> -->
+                            <!-- <li><a href="{{ route('underConstruction') }}">Node JS</a></li> -->
+                            <!-- <li><a href="{{ route('underConstruction') }}">Django &amp; Python</a></li> -->
                         </ul>
                     </li>
-                    <li class="{{ Request::is('agent') ? 'active' : '' }}"><a href="{{ route('agent') }}">Agent</a></li>
+                    <li class="{{ Request::is('agent') ? 'active' : '' }}"><a href="{{ route('agent') }}">Staff</a></li>
                     <li class="{{ Request::is('blog') ? 'active' : '' }}"><a href="{{ route('blog') }}">Blog</a></li>
                     <li class="{{ Request::is('contact') ? 'active' : '' }}"><a href="{{ route('contact') }}">Contact</a></li>
                     @guest

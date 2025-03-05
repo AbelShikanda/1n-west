@@ -9,17 +9,16 @@
                                 <div class="slider-text-inner">
                                     <div class="desc">
                                         <span class="status">Rent</span>
-                                        <h1>New House in Nairobi, Kenya</h1>
+                                        <h1>House in Nairobi</h1>
                                         <h2 class="price">Ksh 70,000</h2>
                                         <p>
-                                            This 3-bedroom, 2-bathroom house is available for 
-                                            rent in a quiet and secure neighborhood
+                                            This house is available for rent in a quiet and secure neighborhood
                                         </p>
                                         <p class="details">
-                                            <span>Spacious living and dining</span>
+                                            <span>Spacious</span>
                                             <span>4 Bedrooms</span>
                                             <span>3 Bathrooms</span>
-                                            <span>Private parking</span>
+                                            <span>Parking</span>
                                         </p>
                                         <p>
                                             <a class="btn btn-primary btn-lg" href="{{ route('underConstruction') }}">Learn More</a>
@@ -37,17 +36,16 @@
                                 <div class="slider-text-inner">
                                     <div class="desc">
                                         <span class="status">Rent</span>
-                                        <h1>New House in Nairobi, Kenya</h1>
+                                        <h1>House in Nairobi</h1>
                                         <h2 class="price">Ksh 30,000<h2>
                                                 <p>
-                                            This 3-bedroom, 2-bathroom house is available for 
-                                            rent in a quiet and secure neighborhood
+                                            This house is available for rent in a quiet and secure neighborhood
                                                 </p>
                                                 <p class="details">
-                                                    <span>Spacious living and dining</span>
+                                                    <span>Spacious</span>
                                                     <span>4 Bedrooms</span>
                                                     <span>3 Bathrooms</span>
-                                                    <span>Private parking</span>
+                                                    <span>Parking</span>
                                                 </p>
                                                 <p>
                                                     <a class="btn btn-primary btn-lg" href="{{ route('underConstruction') }}">Learn More</a>
@@ -65,17 +63,16 @@
                                 <div class="slider-text-inner">
                                     <div class="desc">
                                         <span class="status">Rent</span>
-                                        <h1>New House in Nairobi, Kenya</h1>
+                                        <h1>House in Nairobi</h1>
                                         <h2 class="price">Ksh 50,000</h2>
                                         <p>
-                                            This 3-bedroom, 2-bathroom house is available for 
-                                            rent in a quiet and secure neighborhood
+                                            This house is available for rent in a quiet and secure neighborhood
                                         </p>
                                         <p class="details">
-                                            <span>Spacious living and dining</span>
+                                            <span>Spacious</span>
                                             <span>4 Bedrooms</span>
                                             <span>3 Bathrooms</span>
-                                            <span>Private parking</span>
+                                            <span>Parking</span>
                                         </p>
                                         <p>
                                             <a class="btn btn-primary btn-lg" href="{{ route('underConstruction') }}">Learn More</a>

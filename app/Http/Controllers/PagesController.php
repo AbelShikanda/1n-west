@@ -8,12 +8,12 @@ class PagesController extends Controller
 {
     public function agent()
     {
-        $pageTitle = 'Our Agent';
+        $pageTitle = 'Our Staff';
         $breadcrumbLinks = [
-            'DescriptionOne' => 'Meet our agents',
+            'DescriptionOne' => 'Meet our staff',
             'DescriptionTwo' => 'by the fine folks at',
             'url' => '/under_construction',
-            'label' => 'Home',
+            'label' => 'jke',
         ];
         return view(
             'pages.agent',
@@ -31,7 +31,7 @@ class PagesController extends Controller
             'DescriptionOne' => 'Develop a',
             'DescriptionTwo' => 'for reading',
             'url' => '/under_construction',
-            'label' => 'Home',
+            'label' => 'jke',
         ];
         return view(
             'pages.blog',
@@ -49,7 +49,7 @@ class PagesController extends Controller
             'DescriptionOne' => 'We alway',
             'DescriptionTwo' => 'to talk to our customers',
             'url' => '/under_construction',
-            'label' => 'Home',
+            'label' => 'jke',
         ];
         return view(
             'pages.contact',
@@ -62,12 +62,12 @@ class PagesController extends Controller
 
     public function properties()
     {
-        $pageTitle = 'Our Properties';
+        $pageTitle = 'View Apartments';
         $breadcrumbLinks = [
             'DescriptionOne' => 'You will',
-            'DescriptionTwo' => 'Our other properties',
+            'DescriptionTwo' => 'Our other apartments',
             'url' => '/under_construction',
-            'label' => 'Home',
+            'label' => 'jke',
         ];
         return view(
             'pages.properties',
