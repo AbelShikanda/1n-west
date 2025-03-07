@@ -65,9 +65,9 @@
                     <p>
                         Copyright 2025 <a href="{{ route('underConstruction') }}">Module</a>. All Rights
                         Reserved. <br />Made with <i class="icon-heart3"></i> by
-                        <a href="{{ route('underConstruction') }}" target="_blank">jke</a>
+                        <a href="https://jke.co.ke" target="_blank">jke</a>
                         / Demo Images:
-                        <a href="{{ route('underConstruction') }}" target="_blank">jke</a>
+                        <a href="https://jke.co.ke" target="_blank">jke</a>
                     </p>
                 </div>
             </div>

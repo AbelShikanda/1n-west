@@ -12,8 +12,8 @@ class PagesController extends Controller
         $breadcrumbLinks = [
             'DescriptionOne' => 'Meet our staff',
             'DescriptionTwo' => 'by the fine folks at',
-            'url' => '/under_construction',
-            'label' => 'jke',
+            'url' => '/agent',
+            'label' => 'staff',
         ];
         return view(
             'pages.agent',
@@ -30,8 +30,8 @@ class PagesController extends Controller
         $breadcrumbLinks = [
             'DescriptionOne' => 'Develop a',
             'DescriptionTwo' => 'for reading',
-            'url' => '/under_construction',
-            'label' => 'jke',
+            'url' => '/blog',
+            'label' => 'blog',
         ];
         return view(
             'pages.blog',
@@ -48,8 +48,8 @@ class PagesController extends Controller
         $breadcrumbLinks = [
             'DescriptionOne' => 'We alway',
             'DescriptionTwo' => 'to talk to our customers',
-            'url' => '/under_construction',
-            'label' => 'jke',
+            'url' => '/contact',
+            'label' => 'contact',
         ];
         return view(
             'pages.contact',
@@ -66,8 +66,8 @@ class PagesController extends Controller
         $breadcrumbLinks = [
             'DescriptionOne' => 'You will',
             'DescriptionTwo' => 'Our other apartments',
-            'url' => '/under_construction',
-            'label' => 'jke',
+            'url' => '/properties',
+            'label' => 'apartments',
         ];
         return view(
             'pages.properties',

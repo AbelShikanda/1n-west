@@ -157,7 +157,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12 col-md-offset-0 text-center heading-section animate-box">
-                        <h3>Ask an help, We're here to help 24/7</h3>
+                        <h3>Ask for help, We're here to help 24/7</h3>
                         <p>
                             Need assistance with renting? Speak to an available staff to
                             provide the guidance you need to make an informed decisions.
