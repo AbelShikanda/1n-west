@@ -57,63 +57,6 @@
         </div>
     </div>
 
-    <!-- <div id="fh5co-popular-properties" class="fh5co-section-gray">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
-                    <h3>View Apartments</h3>
-                    <p>
-                        Have an online view of the apartment befor booking a viewing.
-                    </p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 animate-box">
-                    <a href="{{ route('underConstruction') }}" class="fh5co-property"
-                        style="background-image: url('{{ asset('1n-west/images/property-1.jpg') }}')">
-                        <span class="status">Rent</span>
-                        <div class="prop-details">
-                            <span class="price">Ksh 50,000</span>
-                            <h3>Apartment Near in Mall, Nairobi town</h3>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
-    <!-- <div id="fh5co-testimonial"
-                    style="background-image: url('{{ asset('1n-west/images/img_bg_2.jpg') }}'); background-repeat: no-repeat; background-size: cover;">
-                    <div class="container">
-                        <div class="row animate-box">
-                            <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-                                <h2>Happy Clients</h2>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="box-testimony animate-box">
-                                    <blockquote>
-                                        <span class="quote"><span><i class="icon-quotes-right"></i></span></span>
-                                        <p>
-                                            &ldquo;Far far away, behind the word mountains, far from
-                                            the countries Vokalia and Consonantia, there live the
-                                            blind texts. Separated they live in Bookmarksgrove right
-                                            at the coast of the Semantics, a large language
-                                            ocean.&rdquo;
-                                        </p>
-                                    </blockquote>
-                                    <p class="author">
-                                        John Doe, CEO
-                                        <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a>
-                                        <span class="subtext">Creative Director</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
     @include('layouts.partials.newProperties')
 
     <div id="fh5co-about" class="fh5co-agent">
