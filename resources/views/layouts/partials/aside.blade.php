@@ -2,7 +2,7 @@
     <aside id="fh5co-hero" class="js-fullheight">
         <div class="flexslider js-fullheight">
             <ul class="slides">
-                <li style="background-image: url('{{ asset('1n-west/images/img_bg_1.jpg') }}')">
+                <li style="background-image: url('{{ asset('1n-west/images/cover_bg_1.jpg') }}')">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-4 col-md-offset-4 col-md-pull-4 js-fullheight slider-text">
@@ -29,7 +29,7 @@
                         </div>
                     </div>
                 </li>
-                <li style="background-image: url('{{ asset('1n-west/images/img_bg_2.jpg') }}')">
+                <li style="background-image: url('{{ asset('1n-west/images/cover_bg_3.jpeg') }}')">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-4 col-md-offset-4 col-md-pull-4 js-fullheight slider-text">
