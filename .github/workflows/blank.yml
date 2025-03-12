@@ -119,14 +119,14 @@ jobs:
           N_WEST_DIR: /home/ozkrwfgx/1nwest/release/${{github.sha}}/public/1n-west
           IMAGES: /home/ozkrwfgx/1nwest/release/${{github.sha}}/public/images
           FONTS: /home/ozkrwfgx/1nwest/release/${{github.sha}}/public/fonts
-          # SOURCE_ADMIN_DIR: /home/ozkrwfgx/1nwest/release/${{github.sha}}/public/admin
+          SOURCE_ADMIN_DIR: /home/ozkrwfgx/1nwest/release/${{github.sha}}/public/admin
 
           DEST_CSS_DIR: /home/ozkrwfgx/public_html/css
           DEST_JS_DIR: /home/ozkrwfgx/public_html/js
           DEST_N_WEST_DIR: /home/ozkrwfgx/public_html/1n-west
           DEST_IMAGES: /home/ozkrwfgx/public_html/images
           DEST_FONTS: /home/ozkrwfgx/public_html/fonts
-          # DEST_ADMIN_DIR: /home/ozkrwfgx/public_html/admin
+          DEST_ADMIN_DIR: /home/ozkrwfgx/public_html/admin
 
           DEST_PARENT_DIR: /home/ozkrwfgx/public_html
         with:
@@ -244,24 +244,24 @@ jobs:
                 echo "1n-west directory does not exist in the source."
             fi
             # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            # if [ -d "$SOURCE_ADMIN_DIR" ]; then
-            #     if [ -d "$DEST_ADMIN_DIR" ]; then
-            #         rm -rf "$DEST_ADMIN_DIR"
-            #         if [ $? -ne 0 ]; then
-            #             echo "Failed to remove the destination admin directory."
-            #             exit 1
-            #         fi
-            #     else
-            #         echo "admin directory does not exist in the destination."
-            #     fi
-            #     mv "$SOURCE_ADMIN_DIR" "$DEST_PARENT_DIR"
-            #     if [ $? -ne 0 ]; then
-            #         echo "Failed to move the admin directory from source to destination."
-            #         exit 1
-            #     fi
-            # else
-            #     echo "admin directory does not exist in the source."
-            # fi
+            if [ -d "$SOURCE_ADMIN_DIR" ]; then
+                if [ -d "$DEST_ADMIN_DIR" ]; then
+                    rm -rf "$DEST_ADMIN_DIR"
+                    if [ $? -ne 0 ]; then
+                        echo "Failed to remove the destination admin directory."
+                        exit 1
+                    fi
+                else
+                    echo "admin directory does not exist in the destination."
+                fi
+                mv "$SOURCE_ADMIN_DIR" "$DEST_PARENT_DIR"
+                if [ $? -ne 0 ]; then
+                    echo "Failed to move the admin directory from source to destination."
+                    exit 1
+                fi
+            else
+                echo "admin directory does not exist in the source."
+            fi
             # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             # ++++++++++++++++++++++++++++++++++++++++++++++First time++++++++++++++++++++++++++++++++++++++++++++++
             # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
