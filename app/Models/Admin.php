@@ -7,12 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
-// use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Traits\HasRoles;
 
 class Admin extends Authenticatable
 {
-    use HasFactory, Notifiable;
-    // use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles;
 
     protected static function boot()
     {
