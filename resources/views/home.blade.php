@@ -80,9 +80,9 @@
                             The caretaker
                         </p>
                         <p class="fh5co-social-icons">
-                            <a href="{{ route('underConstruction') }}"><i class="icon-twitter2"></i></a>
-                            <a href="{{ route('underConstruction') }}"><i class="icon-facebook2"></i></a>
-                            <a href="{{ route('underConstruction') }}"><i class="icon-instagram"></i></a>
+                            <a href="{{ route('agent') }}"><i class="icon-twitter2"></i></a>
+                            <a href="{{ route('agent') }}"><i class="icon-facebook2"></i></a>
+                            <a href="{{ route('agent') }}"><i class="icon-instagram"></i></a>
                             <!-- <a href="{{ route('underConstruction') }}"><i class="icon-dribbble2"></i></a> -->
                             <!-- <a href="{{ route('underConstruction') }}"><i class="icon-youtube"></i></a> -->
                         </p>
@@ -135,7 +135,7 @@
                                 <div class="form-group">
                                     <!-- <input type="submit" value="Send Message" class="btn btn-primary"
                                         id="submit-btn" /> -->
-                                    <a href="{{ route('underConstruction') }}" class="btn btn-primary">Send Message</a>
+                                    <a href="{{ route('contact') }}" class="btn btn-primary">Send Message</a>
                                 </div>
                             </div>
                         </div>

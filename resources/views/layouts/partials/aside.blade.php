@@ -2,87 +2,60 @@
     <aside id="fh5co-hero" class="js-fullheight">
         <div class="flexslider js-fullheight">
             <ul class="slides">
-                <li style="background-image: url('{{ asset('1n-west/images/cover_bg_1.jpg') }}')">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-4 col-md-offset-4 col-md-pull-4 js-fullheight slider-text">
-                                <div class="slider-text-inner">
-                                    <div class="desc">
-                                        <span class="status">Rent</span>
-                                        <h1>House in Nairobi</h1>
-                                        <h2 class="price">Ksh 70,000</h2>
-                                        <p>
-                                            This house is available for rent in a quiet and secure neighborhood
-                                        </p>
-                                        <p class="details">
-                                            <span>Spacious</span>
-                                            <span>4 Bedrooms</span>
-                                            <span>3 Bathrooms</span>
-                                            <span>Parking</span>
-                                        </p>
-                                        <p>
-                                            <a class="btn btn-primary btn-lg" href="{{ route('underConstruction') }}">Learn More</a>
-                                        </p>
+                @forelse ($properties as $property)
+                    <li style="background-image: url('{{ asset('1n-west/images/' . $property->meta_image) }}')">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-4 col-md-offset-4 col-md-pull-4 js-fullheight slider-text">
+                                    <div class="slider-text-inner">
+                                        <div class="desc">
+                                            <span class="status">{{ $property->promotion ? 'Featured' : 'Rent' }}</span>
+                                            <h1>{{ $property->name }}</h1>
+                                            <h2 class="price">Ksh {{ number_format($property->price) }}</h2>
+                                            <p>{{ $property->meta_description }}</p>
+                                            <p class="details">
+                                                <span>{{ $property->rooms }} Bedroom{{ $property->rooms > 1 ? 's' : '' }}</span>
+                                                <span>{{ $property->baths }} Bathroom{{ $property->baths > 1 ? 's' : '' }}</span>
+                                                <span>Parking</span>
+                                            </p>
+                                            <p>
+                                                <a class="btn btn-primary btn-lg" href="{{ route('properties.show', $property->slug) }}">Learn More</a>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-                <li style="background-image: url('{{ asset('1n-west/images/cover_bg_3.jpeg') }}')">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-4 col-md-offset-4 col-md-pull-4 js-fullheight slider-text">
-                                <div class="slider-text-inner">
-                                    <div class="desc">
-                                        <span class="status">Rent</span>
-                                        <h1>House in Nairobi</h1>
-                                        <h2 class="price">Ksh 30,000<h2>
-                                                <p>
-                                            This house is available for rent in a quiet and secure neighborhood
-                                                </p>
-                                                <p class="details">
-                                                    <span>Spacious</span>
-                                                    <span>4 Bedrooms</span>
-                                                    <span>3 Bathrooms</span>
-                                                    <span>Parking</span>
-                                                </p>
-                                                <p>
-                                                    <a class="btn btn-primary btn-lg" href="{{ route('underConstruction') }}">Learn More</a>
-                                                </p>
+                    </li>
+                @empty
+                    <li style="background-image: url('{{ asset('1n-west/images/cover_bg_1.jpg') }}')">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-4 col-md-offset-4 col-md-pull-4 js-fullheight slider-text">
+                                    <div class="slider-text-inner">
+                                        <div class="desc">
+                                            <span class="status">Rent</span>
+                                            <h1>House in Nairobi</h1>
+                                            <h2 class="price">Ksh 70,000</h2>
+                                            <p>
+                                                This house is available for rent in a quiet and secure neighborhood
+                                            </p>
+                                            <p class="details">
+                                                <span>Spacious</span>
+                                                <span>4 Bedrooms</span>
+                                                <span>3 Bathrooms</span>
+                                                <span>Parking</span>
+                                            </p>
+                                            <p>
+                                                <a class="btn btn-primary btn-lg" href="{{ route('properties') }}">Learn More</a>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-                <li style="background-image: url('{{ asset('1n-west/images/img_bg_3.jpg') }}')">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-4 col-md-offset-4 col-md-pull-4 js-fullheight slider-text">
-                                <div class="slider-text-inner">
-                                    <div class="desc">
-                                        <span class="status">Rent</span>
-                                        <h1>House in Nairobi</h1>
-                                        <h2 class="price">Ksh 50,000</h2>
-                                        <p>
-                                            This house is available for rent in a quiet and secure neighborhood
-                                        </p>
-                                        <p class="details">
-                                            <span>Spacious</span>
-                                            <span>4 Bedrooms</span>
-                                            <span>3 Bathrooms</span>
-                                            <span>Parking</span>
-                                        </p>
-                                        <p>
-                                            <a class="btn btn-primary btn-lg" href="{{ route('underConstruction') }}">Learn More</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
+                    </li>
+                @endforelse
             </ul>
         </div>
     </aside>
