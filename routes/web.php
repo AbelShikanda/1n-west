@@ -74,10 +74,10 @@ Route::group(['prefix' => '/admin'], function () {
 //     Route::DELETE('/promo-destroy/{id}', [PromoCodeController::class, 'destroy'])->name('promo.destroy');
 // });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::redirect('/', '/home');
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->middleware('verified')->name('home');
 
 Route::get('/agent', [PagesController::class, 'agent'])->name('agent');
 Route::get('/blog', [PagesController::class, 'blog'])->name('blog');
