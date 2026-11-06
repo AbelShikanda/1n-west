@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Property;
-use App\Models\PropertyCategory;
-use App\Models\PropertyType;
+use App\Models\PropertyCategories;
+use App\Models\PropertyTypes;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 
@@ -34,8 +34,17 @@ class DashboardController extends Controller
         $activeAdmins = Admin::where('is_admin', 1)->count();
 
         // Step 3: Category/type breakdown
-        $propertiesByCategory = PropertyCategory::withCount('properties')->get();
-        $propertiesByType = PropertyType::withCount('properties')->get();
+        // Count properties by category using the categories_id foreign key
+        $propertiesByCategory = PropertyCategories::selectRaw('property_categories.id, property_categories.name, count(properties.id) as total')
+            ->leftJoin('properties', 'property_categories.id = properties.categories_id')
+            ->groupBy('property_categories.id')
+            ->get(['property_categories.id', 'property_categories.name', 'total']);
+
+        // Count properties by type using the types_id foreign key
+        $propertiesByType = PropertyTypes::selectRaw('property_types.id, property_types.name, count(properties.id) as total')
+            ->leftJoin('properties', 'property_types.id = properties.types_id')
+            ->groupBy('property_types.id')
+            ->get(['property_types.id', 'property_types.name', 'total']);
 
         return view('admin.dashboard.dashboard', compact(
             'totalProperties',
