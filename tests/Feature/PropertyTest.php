@@ -86,4 +86,19 @@ class PropertyTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_homepage_loads_with_properties()
+    {
+        PropertyTypes::factory()->create(['name' => 'Apartment', 'slug' => 'apartment']);
+        PropertyCategories::factory()->create(['name' => 'Residential', 'slug' => 'residential']);
+        Property::factory()->count(3)->create([
+            'categories_id' => PropertyCategories::first()->id,
+            'types_id' => PropertyTypes::first()->id,
+            'meta_image' => 'property-1.jpg',
+        ]);
+
+        $response = $this->get('/');
+
+        $response->assertStatus(302);
+    }
 }
