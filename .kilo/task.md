@@ -27,19 +27,22 @@ This protects master/main from incomplete or broken changes.
 
 ## Module Execution Order (Complete List of All Pages & Modules Needing Updates)
 
-### Module 1: Property Detail Page (Public Frontend)
-**New page** — `/properties/{slug}` showing full property information.
+### Module 1: Property Detail Page (Public Frontend) — COMPLETE
+**Branch:** `feature/module-1-property-detail-page` (committed, push pending — GitHub PAT expired)
+
+New page — `/properties/{slug}` showing full property information.
 
 Tasks:
-- [ ] Create `PropertyController` with `show()` method for property detail
-- [ ] Add route: `GET /properties/{slug}` → `PropertyController@show`
-- [ ] Create view: `resources/views/pages/property-details.blade.php`
-- [ ] Link property cards from `/properties` and home to detail pages (replace `underConstruction` links)
-- [ ] Add property images support (migration + model if needed)
-- [ ] Add meta tags (meta_description, meta_keywords, meta_image) to detail page
-- [ ] Add WhatsApp/Telegram/Website contact links on detail page
-- [ ] Write feature test: property detail page loads with correct data
-- [ ] Branch → PR → merge to master
+- [x] Create `PropertyController` with `show()` method for property detail
+- [x] Add route: `GET /properties/{slug}` → `PropertyController@show`
+- [x] Create view: `resources/views/pages/property-details.blade.php`
+- [x] Link property cards from `/properties` and home to detail pages (replace `underConstruction` links)
+- [x] Add property images support (meta_image column used)
+- [x] Add meta tags (meta_description, meta_keywords, meta_image) to detail page
+- [x] Add WhatsApp/Telegram/Website contact links on detail page
+- [x] Write feature test: property detail page loads with correct data
+- [x] Commit on branch (push pending — GitHub PAT expired)
+- [ ] Push branch → PR → merge to master (blocked by expired PAT)
 
 ### Module 2: Homepage (Public Frontend)
 **File:** `resources/views/home.blade.php`
@@ -300,4 +303,4 @@ Tasks:
 - [ ] Branch → PR → merge to master
 
 ## Status
-**In progress** — Initial exploration complete. All 26 modules catalogued. Ready to start Module 1 (Property Detail Page).
+**Module 1 complete** — Property Detail Page committed on `feature/module-1-property-detail-page`. All 7 tests pass against PostgreSQL. Push to GitHub blocked by expired PAT. Master reset to `7c5d0d4` (pre-Module 1) to comply with branch protection. Ready to start Module 2 (Homepage).
