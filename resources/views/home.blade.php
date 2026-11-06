@@ -19,7 +19,7 @@
                                 Are you looking for moving services, or alternative rental
                                 properties witin our portfolio?
                             </p>
-                            <p><a href="{{ route('underConstruction') }}">Learn More</a></p>
+                            <p><a href="{{ route('properties') }}">Learn More</a></p>
                         </div>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                                 Would you like to transition from a tenant to a
                                 home-owner?
                             </p>
-                            <p><a href="{{ route('underConstruction') }}">Learn More</a></p>
+                            <p><a href="{{ route('properties') }}">Learn More</a></p>
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                                 Explore you neighborhood, the nearby schools, market,
                                 and parks.
                             </p>
-                            <p><a href="{{ route('underConstruction') }}">Learn More</a></p>
+                            <p><a href="{{ route('properties') }}">Learn More</a></p>
                         </div>
                     </div>
                 </div>

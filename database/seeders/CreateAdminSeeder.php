@@ -14,11 +14,31 @@ class CreateAdminSeeder extends Seeder
      */
     public function run()
     {
-        DB::statement("
-        INSERT INTO `admins` (`id`, `uuid`, `username`, `name`, `avatar`, `email`, `password`, `is_admin`, `created_at`, `updated_at`)
-        VALUES 
-            (5, 'e7ed7f10-7e8e-43f5-af31-ee6dfa65eb49', 'abel', 'abel', NULL, 'abelshikanda3@gmail.com', '\$2y\$10\$3LYZlEfKFA4xzo84LPmtHuqDHxWIEcEeMqFNho/FXlLFFOs14aE1a', '1', NULL, NULL),
-            (6, 'e7ed7f10-7e8e-48f5-af31-ee6dfa65fb49', 'fiona', 'fiona', NULL, 'liszt.luca2@gmail.com', '\$2y\$10\$3LYZlEfKFA4xzo84LPmtHuqDHxWIEcEeMqFNho/FXlLFFOs14aE1a', '1', NULL, NULL);
-        ");
+        DB::table('admins')->insert([
+            [
+                'id' => 5,
+                'uuid' => 'e7ed7f10-7e8e-43f5-af31-ee6dfa65eb49',
+                'username' => 'abel',
+                'name' => 'abel',
+                'avatar' => null,
+                'email' => 'abelshikanda3@gmail.com',
+                'password' => '$2y$10$3LYZlEfKFA4xzo84LPmtHuqDHxWIEcEeMqFNho/FXlLFFOs14aE1a',
+                'is_admin' => 1,
+                'created_at' => null,
+                'updated_at' => null,
+            ],
+            [
+                'id' => 6,
+                'uuid' => 'e7ed7f10-7e8e-48f5-af31-ee6dfa65fb49',
+                'username' => 'fiona',
+                'name' => 'fiona',
+                'avatar' => null,
+                'email' => 'liszt.luca2@gmail.com',
+                'password' => '$2y$10$3LYZlEfKFA4xzo84LPmtHuqDHxWIEcEeMqFNho/FXlLFFOs14aE1a',
+                'is_admin' => 1,
+                'created_at' => null,
+                'updated_at' => null,
+            ],
+        ]);
     }
 }

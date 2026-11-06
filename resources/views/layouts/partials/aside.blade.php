@@ -87,6 +87,15 @@
         </div>
     </aside>
 @else
+    @php
+        $pageTitle = isset($pageTitle) ? $pageTitle : 'Properties';
+        $breadcrumbLinks = isset($breadcrumbLinks) ? $breadcrumbLinks : [
+            'DescriptionOne' => 'View our',
+            'DescriptionTwo' => 'apartments',
+            'url' => '/properties',
+            'label' => 'apartments',
+        ];
+    @endphp
     <aside id="fh5co-hero" class="js-fullheight">
         <div class="flexslider js-fullheight">
             <ul class="slides">
