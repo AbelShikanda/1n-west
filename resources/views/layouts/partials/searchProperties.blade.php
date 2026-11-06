@@ -1,4 +1,4 @@
-<!-- <div id="fh5co-search-map">
+<div id="fh5co-search-map">
         <div class="search-property">
             <div class="s-holder">
                 <h2>Search Properties</h2>
@@ -129,4 +129,4 @@
             </div>
         </div>
         <div class="map" style="background-image: url('{{ asset('1n-west/images/cover_bg_1.jpg')}}')"></div>
-    </div> -->
+    </div>
