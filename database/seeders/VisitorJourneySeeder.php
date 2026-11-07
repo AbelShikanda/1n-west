@@ -2,14 +2,12 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\VisitorData;
+use App\Models\VisitorJourney;
 use Illuminate\Database\Seeder;
 
 class VisitorJourneySeeder extends Seeder
 {
-    use HasFactory;
-
     /**
      * Run the database seeds.
      *
@@ -17,32 +15,24 @@ class VisitorJourneySeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\VisitorJourney::create([
-            'visitor_data_id' => 1,
-            'page_url' => '/home',
-            'event_type' => 'page_visit',
-            'visited_at' => now(),
-        ]);
+        $visitorIds = VisitorData::query()->pluck('id')->values();
 
-        \App\Models\VisitorJourney::create([
-            'visitor_data_id' => 1,
-            'page_url' => '/properties',
-            'event_type' => 'page_visit',
-            'visited_at' => now(),
-        ]);
+        if ($visitorIds->isEmpty()) {
+            return;
+        }
 
-        \App\Models\VisitorJourney::create([
-            'visitor_data_id' => 2,
-            'page_url' => '/properties/test-apartment',
-            'event_type' => 'page_visit',
-            'visited_at' => now(),
-        ]);
+        $first = $visitorIds[0];
+        $second = $visitorIds[1] ?? $first;
 
-        \App\Models\VisitorJourney::create([
-            'visitor_data_id' => 2,
-            'page_url' => '/checkout',
-            'event_type' => 'conversion',
-            'visited_at' => now(),
-        ]);
+        $journeys = [
+            ['visitor_data_id' => $first, 'page_url' => '/home', 'event_type' => 'page_visit'],
+            ['visitor_data_id' => $first, 'page_url' => '/properties', 'event_type' => 'page_visit'],
+            ['visitor_data_id' => $second, 'page_url' => '/properties/test-apartment', 'event_type' => 'page_visit'],
+            ['visitor_data_id' => $second, 'page_url' => '/checkout', 'event_type' => 'conversion'],
+        ];
+
+        foreach ($journeys as $journey) {
+            VisitorJourney::create($journey + ['visited_at' => now()]);
+        }
     }
 }

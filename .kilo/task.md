@@ -257,19 +257,18 @@ Tasks:
 - [ ] Run `php artisan db:seed` against Postgres (env-specific; SQLite/RefreshDatabase tests validate seeders)
 - [ ] Branch → PR → merge to master (working directly on master per user request)
 
-### Module 24: Database Migration — MySQL to PostgreSQL
+### Module 24: Database Migration — MySQL to PostgreSQL — COMPLETE (verification pass)
 **Database engine replacement**
 
 Tasks:
-- [ ] Install PostgreSQL and `pgsql` PHP extension
-- [ ] Update `.env`: `DB_CONNECTION=pgsql`, update host/port/database/user/password
-- [ ] Update `config/database.php` if needed for PostgreSQL specifics
-- [ ] Review all migrations for MySQL-specific types (e.g., `tinyInteger`, `softDeletes`, `uuid`) and adjust for PostgreSQL compatibility
-- [ ] Run `php artisan migrate` against PostgreSQL to verify all tables create correctly
-- [ ] Run `php artisan db:seed` against PostgreSQL to verify seeders work
-- [ ] Verify UUID column type works with PostgreSQL (admins table uses `$table->uuid()`)
-- [ ] Run full test suite against PostgreSQL
-- [ ] Branch → PR → merge to master
+- [x] `pdo_pgsql` available; `.env` configured for `pgsql` (nnwest @ 127.0.0.1:5434)
+- [x] Pending migration applied on pgsql: `2026_11_07_140000_add_tenant_to_users_table` (all migrations now Ran)
+- [x] Migrations reviewed/applied on PostgreSQL (`migrate:status` clean); UUID/boolean/FK patterns compatible in current schema
+- [x] Seeders validated; fixed Postgres FK/sequence issues (BlogsSeeder resolves category IDs dynamically + updateOrCreate; VisitorJourneySeeder resolves visitor IDs dynamically)
+- [x] `RolesAndPermissionsSeeder` runs on pgsql
+- [x] Full test suite against PostgreSQL (`DB_CONNECTION=pgsql vendor/bin/phpunit --do-not-cache-result`): **45 tests, 102 assertions, OK**
+- [ ] Optional: `migrate:fresh --seed` on a disposable/test Postgres DB for full reset proof (skipped to avoid destructive reset of configured DB without explicit confirmation)
+- [ ] Branch → PR → merge to master (working directly on master per user request)
 
 ### Module 25: Security & Configuration
 **Files:** `.env`, `.env.example`, `.gitignore`
@@ -291,4 +290,4 @@ Tasks:
 - [ ] Branch → PR → merge to master
 
 ## Status
-**Modules 21-23 (RBAC, missing models/migrations/pivots/factories, seeder smoke)** committed to `master` (`25b20ac`, `c218616`, `6ede4c9`). Full suite: **45 tests, 102 assertions, OK** (`DB_CONNECTION=sqlite DB_DATABASE=:memory: APP_ENV=testing vendor/bin/phpunit --testdox`). Earlier modules (1,3–5,6–10/12 parts,14–16,18) have commits/tests in history; `.kilo/task.md` checkboxes need a reconciliation pass (some items predate recent work). **Next:** Module 24 — PostgreSQL migration/compat verification against real `pgsql` (migrations/seeders/full tests), then Module 17 sidebar wiring / Module 20 slug regression / Module 26 coverage. Push to GitHub may still require valid PAT.
+**Modules 21-24** committed to `master` (`25b20ac`, `c218616`, `6ede4c9`, plus Module 24 commit). PostgreSQL (`nnwest`, pgsql) migrations current; **full suite passes on PostgreSQL**: `DB_CONNECTION=pgsql vendor/bin/phpunit --do-not-cache-result` → **45 tests, 102 assertions, OK**. SQLite suite also OK. `.kilo/task.md` still needs a broader reconciliation pass for Modules 1–20. **Next:** Module 20 slug regression test/close, Module 17 admin sidebar wiring (where controllers exist), Module 25 security/config hygiene, Module 26 coverage expansion. Push to GitHub may still require valid PAT.
