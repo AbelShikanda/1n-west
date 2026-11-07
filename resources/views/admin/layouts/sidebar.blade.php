@@ -53,13 +53,16 @@
                         <a class="nav-link pl-3" href="{{ route('property-categories.index') }}"><span class="ml-1 item-text">Property Categories</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link pl-3" href="{{ route('dashboard.index') }}"><span class="ml-1 item-text">Rooms</span></a>
+                        <a class="nav-link pl-3" href="{{ route('admin.properties.index') }}"><span class="ml-1 item-text">Rooms</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link pl-3" href="{{ route('dashboard.index') }}"><span class="ml-1 item-text">Baths</span></a>
+                        <a class="nav-link pl-3" href="{{ route('admin.properties.index') }}"><span class="ml-1 item-text">Baths</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link pl-3" href="{{ route('dashboard.index') }}"><span class="ml-1 item-text">Images</span></a>
+                        <a class="nav-link pl-3" href="{{ route('admin.property-images.index') }}"><span class="ml-1 item-text">Images</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link pl-3" href="{{ route('admin.properties.index') }}"><span class="ml-1 item-text">Prices</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link pl-3" href="{{ route('property-types.index') }}"><span class="ml-1 item-text">Property Types</span></a>
@@ -79,13 +82,13 @@
                 <ul class="collapse list-unstyled pl-4 w-100" id="charts">
 
                     <li class="nav-item">
-                        <a class="nav-link pl-3" href="{{ route('dashboard.index') }}"><span class="ml-1 item-text">Admins</span></a>
+                        <a class="nav-link pl-3" href="{{ route('admin.admins.index') }}"><span class="ml-1 item-text">Admins</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link pl-3" href="{{ route('dashboard.index') }}"><span class="ml-1 item-text">Staff</span></a>
+                        <a class="nav-link pl-3" href="{{ route('admin.admins.index') }}"><span class="ml-1 item-text">Staff</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link pl-3" href="{{ route('dashboard.index') }}"><span class="ml-1 item-text">Tenants</span></a>
+                        <a class="nav-link pl-3" href="{{ route('admin.users.index') }}"><span class="ml-1 item-text">Tenants</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link pl-3" href="{{ route('admin.contacts.index') }}"><span class="ml-1 item-text">Contacts</span></a>
@@ -119,19 +122,18 @@
                 </a>
                 <ul class="collapse list-unstyled pl-4 w-100" id="tables">
                     <li class="nav-item">
-                        <a class="nav-link pl-3" href="{{ route('dashboard.index') }}"><span class="ml-1 item-text">Articles</span></a>
+                        <a class="nav-link pl-3" href="{{ route('admin.blogs.index') }}"><span class="ml-1 item-text">Articles</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link pl-3" href="{{ route('blog-categories.index') }}"><span class="ml-1 item-text">Categories</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link pl-3" href="{{ route('dashboard.index') }}"><span class="ml-1 item-text">Images</span></a>
+                        <a class="nav-link pl-3" href="{{ route('admin.blog-images.index') }}"><span class="ml-1 item-text">Images</span></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link pl-3" href="{{ route('dashboard.index') }}"><span class="ml-1 item-text">Comments</span></a>
-                    </li>
-        </ul>
-        </li>
+                    {{-- Comments omitted — no Comments model/table --}}
+                </ul>
+            </li>
+            </ul>
         </ul>
         {{-- <p class="text-muted nav-heading mt-4 mb-1">
             <span>Promo Codes Components</span>

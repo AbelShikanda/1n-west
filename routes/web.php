@@ -2,12 +2,17 @@
 
 use App\Http\Controllers\Admin\Auth\AdminAuthController;
 use App\Http\Controllers\Admin\BlogCategoriesController;
+use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\BlogImagesController;
 use App\Http\Controllers\Admin\ContactsController as AdminContactsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PermissionsController;
 use App\Http\Controllers\Admin\PropertyCategoriesController;
+use App\Http\Controllers\Admin\PropertyController as AdminPropertyController;
+use App\Http\Controllers\Admin\PropertyImagesController;
 use App\Http\Controllers\Admin\PropertyTypesController;
 use App\Http\Controllers\Admin\RolesController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\PropertyController;
@@ -57,6 +62,12 @@ Route::group(['prefix' => '/admin'], function () {
         Route::resource('roles', RolesController::class)->middleware('role:Super Admin,admin');
         Route::resource('permissions', PermissionsController::class)->middleware('role:Super Admin,admin');
         Route::resource('contacts', AdminContactsController::class)->only(['index', 'show', 'destroy'])->names('admin.contacts');
+        Route::resource('properties', \App\Http\Controllers\Admin\PropertyController::class)->names('admin.properties');
+        Route::resource('property-images', \App\Http\Controllers\Admin\PropertyImagesController::class)->names('admin.property-images');
+        Route::resource('admins', \App\Http\Controllers\Admin\AdminController::class)->names('admin.admins');
+        Route::resource('users', \App\Http\Controllers\Admin\UserController::class)->names('admin.users');
+        Route::resource('blogs', \App\Http\Controllers\Admin\BlogController::class)->names('admin.blogs');
+        Route::resource('blog-images', \App\Http\Controllers\Admin\BlogImagesController::class)->names('admin.blog-images');
     });
 });
 
