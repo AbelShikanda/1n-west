@@ -122,7 +122,7 @@
                         <a class="nav-link pl-3" href="{{ route('dashboard.index') }}"><span class="ml-1 item-text">Articles</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link pl-3" href="{{ route('dashboard.index') }}"><span class="ml-1 item-text">Categories</span></a>
+                        <a class="nav-link pl-3" href="{{ route('blog-categories.index') }}"><span class="ml-1 item-text">Categories</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link pl-3" href="{{ route('dashboard.index') }}"><span class="ml-1 item-text">Images</span></a>

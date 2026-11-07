@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Auth\AdminAuthController;
+use App\Http\Controllers\Admin\BlogCategoriesController;
 use App\Http\Controllers\Admin\ContactsController as AdminContactsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PermissionsController;
@@ -52,6 +53,7 @@ Route::group(['prefix' => '/admin'], function () {
         Route::resource('dashboard', DashboardController::class);
         Route::resource('property-categories', PropertyCategoriesController::class);
         Route::resource('property-types', PropertyTypesController::class);
+        Route::resource('blog-categories', BlogCategoriesController::class);
         Route::resource('roles', RolesController::class)->middleware('role:Super Admin,admin');
         Route::resource('permissions', PermissionsController::class)->middleware('role:Super Admin,admin');
         Route::resource('contacts', AdminContactsController::class)->only(['index', 'show', 'destroy'])->names('admin.contacts');
