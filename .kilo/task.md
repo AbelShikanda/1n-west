@@ -247,14 +247,15 @@ Tasks:
 - [ ] Audit `notes/follow-up.txt` for any remaining MVP models (Country/CountryUsers deferred; PropertyPropertyImages not needed — using `property_images`)
 - [ ] Branch → PR → merge to master (working directly on master per user request)
 
-### Module 23: Seeders (Database)
+### Module 23: Seeders (Database) — COMPLETE (core)
 **Files:** `database/seeders/*`
 
 Tasks:
-- [ ] Add seeders for all new models (PropertyImages, Blogs, BlogCategories, Contacts, etc.)
-- [ ] Update `DatabaseSeeder` to call all seeders in correct order
-- [ ] Ensure `php artisan db:seed` runs cleanly
-- [ ] Branch → PR → merge to master
+- [x] Seeders present for Module 22 models (PropertyImages, Blogs, BlogCategories, BlogImages, Contacts, VisitorData, VisitorJourney)
+- [x] `DatabaseSeeder` calls all seeders in dependency order (includes `RolesAndPermissionsSeeder`)
+- [x] Seeder smoke test: `tests/Feature/SeedersTest.php`
+- [ ] Run `php artisan db:seed` against Postgres (env-specific; SQLite/RefreshDatabase tests validate seeders)
+- [ ] Branch → PR → merge to master (working directly on master per user request)
 
 ### Module 24: Database Migration — MySQL to PostgreSQL
 **Database engine replacement**
