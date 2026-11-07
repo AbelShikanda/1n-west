@@ -22,16 +22,16 @@
                         <li><a href="{{ route('blog') }}">Blog</a></li>
                         <!-- <li><a href="#">API</a></li> -->
                         <li><a href="{{ route('contact') }}">Contact</a></li>
-                        <li><a href="{{ route('underConstruction') }}">FAQ</a></li>
+                        <li><a href="{{ route('home') }}">FAQ</a></li>
                     </ul>
                 </div>
 
                 <div class="col-md-3">
                     <h3 class="section-title">Information</h3>
                     <ul>
-                        <li><a href="{{ route('underConstruction') }}">Terms &amp; Condition</a></li>
-                        <li><a href="{{ route('underConstruction') }}">License</a></li>
-                        <li><a href="{{ route('underConstruction') }}">Privacy &amp; Policy</a></li>
+                        <li><a href="{{ route('home') }}">Terms &amp; Condition</a></li>
+                        <li><a href="{{ route('home') }}">License</a></li>
+                        <li><a href="{{ route('home') }}">Privacy &amp; Policy</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3">
@@ -43,7 +43,7 @@
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="email"
                                         placeholder="Enter your email" />
-                                        <a href="{{ route('underConstruction') }}"><i class="icon-paper-plane"></i></a>
+                                        <a href="{{ route('home') }}"><i class="icon-paper-plane"></i></a>
                                     <!-- <button type="submit" class="btn btn-default">
                                         <i class="icon-paper-plane"></i>
                                     </button> -->
@@ -56,14 +56,14 @@
             <div class="row">
                 <div class="col-md-12">
                     <p class="fh5co-social-icons">
-                        <a href="{{ route('underConstruction') }}"><i class="icon-twitter2"></i></a>
-                        <a href="{{ route('underConstruction') }}"><i class="icon-facebook2"></i></a>
-                        <a href="{{ route('underConstruction') }}"><i class="icon-instagram"></i></a>
-                        <a href="{{ route('underConstruction') }}"><i class="icon-dribbble2"></i></a>
-                        <a href="{{ route('underConstruction') }}"><i class="icon-youtube"></i></a>
+                        <a href="{{ route('home') }}"><i class="icon-twitter2"></i></a>
+                        <a href="{{ route('home') }}"><i class="icon-facebook2"></i></a>
+                        <a href="{{ route('home') }}"><i class="icon-instagram"></i></a>
+                        <a href="{{ route('home') }}"><i class="icon-dribbble2"></i></a>
+                        <a href="{{ route('home') }}"><i class="icon-youtube"></i></a>
                     </p>
                     <p>
-                        Copyright 2025 <a href="{{ route('underConstruction') }}">Module</a>. All Rights
+                        Copyright 2025 <a href="{{ route('home') }}">Module</a>. All Rights
                         Reserved. <br />Made with <i class="icon-heart3"></i> by
                         <a href="https://jke.co.ke" target="_blank">jke</a>
                         / Demo Images:
