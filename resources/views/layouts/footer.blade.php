@@ -58,11 +58,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <p class="fh5co-social-icons">
-                        <a href="{{ route('home') }}"><i class="icon-twitter2"></i></a>
-                        <a href="{{ route('home') }}"><i class="icon-facebook2"></i></a>
-                        <a href="{{ route('home') }}"><i class="icon-instagram"></i></a>
-                        <a href="{{ route('home') }}"><i class="icon-dribbble2"></i></a>
-                        <a href="{{ route('home') }}"><i class="icon-youtube"></i></a>
+                        <a href="{{ config('services.social.twitter', route('home')) }}"><i class="icon-twitter2"></i></a>
+                        <a href="{{ config('services.social.facebook', route('home')) }}"><i class="icon-facebook2"></i></a>
+                        <a href="{{ config('services.social.instagram', route('home')) }}"><i class="icon-instagram"></i></a>
+                        <a href="{{ config('services.social.dribbble', route('home')) }}"><i class="icon-dribbble2"></i></a>
+                        <a href="{{ config('services.social.youtube', route('home')) }}"><i class="icon-youtube"></i></a>
                     </p>
                     <p>
                         Copyright 2025 <a href="{{ route('home') }}">Module</a>. All Rights

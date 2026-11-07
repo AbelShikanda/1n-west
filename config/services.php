@@ -30,4 +30,22 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Social Media URLs
+    |--------------------------------------------------------------------------
+    |
+    | Configure the public social media profile URLs used in the site footer.
+    | Leave empty to fall back to the home route.
+    |
+    */
+
+    'social' => [
+        'twitter'  => env('SOCIAL_TWITTER_URL'),
+        'facebook' => env('SOCIAL_FACEBOOK_URL'),
+        'instagram'=> env('SOCIAL_INSTAGRAM_URL'),
+        'dribbble' => env('SOCIAL_DRIBBBLE_URL'),
+        'youtube'  => env('SOCIAL_YOUTUBE_URL'),
+    ],
+
 ];
