@@ -11,7 +11,7 @@
                     <li class="{{ Request::is('properties*') ? 'active' : '' }}">
                         <a href="{{ route('properties') }}" class="fh5co-sub-ddown">Apartments</a>
                         <ul class="fh5co-sub-menu">
-                            <li><a href="{{ route('underConstruction') }}">Family</a></li>
+                            <li><a href="{{ route('properties') }}">Family</a></li>
                             <!-- <li><a href="{{ route('underConstruction') }}">CSS3 &amp; HTML5</a></li> -->
                             <!-- <li><a href="{{ route('underConstruction') }}">Angular JS</a></li> -->
                             <!-- <li><a href="{{ route('underConstruction') }}">Node JS</a></li> -->
