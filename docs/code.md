@@ -34,11 +34,11 @@ Tests run against a separate `nnwest_test` database configured in `.env.testing`
 | Config | `config/` |
 | Env | `.env`, `.env.example` |
 | Assets | `webpack.mix.js`, `resources/sass/`, `resources/js/` |
-| Kilo config | `.kilo/task.md`, `.kilo/goals.md`, `.kilo/decisions.md`, `.kilo/agent/code.md` |
+| Project docs | `task.md`, `goals.md`, `decisions.md`, `code.md` (this directory) |
 
 ## Work Organization
 
-Work is organized **one page/module at a time** (see `.kilo/task.md` for the module order). Complete each module end-to-end before moving to the next.
+Work is organized **one page/module at a time** (see `task.md` for the module order). Complete each module end-to-end before moving to the next.
 
 ## Git Workflow — Branch Protection (REQUIRED)
 
