@@ -1,8 +1,9 @@
-@if (Request::path() == '/' || Request::is('home'))
+@if (Request::is('/') || Request::is('home'))
+    @php $slides = $sliderProperties ?? $properties ?? collect(); @endphp
     <aside id="fh5co-hero" class="js-fullheight">
         <div class="flexslider js-fullheight">
             <ul class="slides">
-                @forelse ($properties as $property)
+                @forelse ($slides as $property)
                     <li style="background-image: url('{{ asset('1n-west/images/' . $property->meta_image) }}')">
                         <div class="container-fluid">
                             <div class="row">
@@ -16,7 +17,9 @@
                                             <p class="details">
                                                 <span>{{ $property->rooms }} Bedroom{{ $property->rooms > 1 ? 's' : '' }}</span>
                                                 <span>{{ $property->baths }} Bathroom{{ $property->baths > 1 ? 's' : '' }}</span>
-                                                <span>Parking</span>
+                                                @if($property->parking)
+                                                    <span>Parking</span>
+                                                @endif
                                             </p>
                                             <p>
                                                 <a class="btn btn-primary btn-lg" href="{{ route('properties.show', $property->slug) }}">Learn More</a>
@@ -37,9 +40,7 @@
                                             <span class="status">Rent</span>
                                             <h1>House in Nairobi</h1>
                                             <h2 class="price">Ksh 70,000</h2>
-                                            <p>
-                                                This house is available for rent in a quiet and secure neighborhood
-                                            </p>
+                                            <p>This house is available for rent in a quiet and secure neighborhood</p>
                                             <p class="details">
                                                 <span>Spacious</span>
                                                 <span>4 Bedrooms</span>
@@ -61,11 +62,11 @@
     </aside>
 @else
     @php
-        $pageTitle = isset($pageTitle) ? $pageTitle : 'Properties';
-        $breadcrumbLinks = isset($breadcrumbLinks) ? $breadcrumbLinks : [
+        $pageTitle = $pageTitle ?? 'Properties';
+        $breadcrumbLinks = $breadcrumbLinks ?? [
             'DescriptionOne' => 'View our',
             'DescriptionTwo' => 'apartments',
-            'url' => '/properties',
+            'url' => route('properties'),
             'label' => 'apartments',
         ];
     @endphp
@@ -79,8 +80,8 @@
                             <div class="col-md-8 col-md-offset-2 text-center js-fullheight slider-text">
                                 <div class="slider-text-inner">
                                     <h2 class="heading-title">{{ $pageTitle }}</h2>
-                                    <p class="fh5co-lead">{{ $breadcrumbLinks['DescriptionOne'] }}<i class="icon-heart3"></i>{{ $breadcrumbLinks['DescriptionTwo'] }}
-                                        <a href="{{ $breadcrumbLinks['url'] }}" target="_blank">{{ $breadcrumbLinks['label'] }}</a></p>
+                                    <p class="fh5co-lead">{{ $breadcrumbLinks['DescriptionOne'] }} <i class="icon-heart3"></i> {{ $breadcrumbLinks['DescriptionTwo'] }}
+                                        <a href="{{ $breadcrumbLinks['url'] }}">{{ $breadcrumbLinks['label'] }}</a></p>
                                 </div>
                             </div>
                         </div>

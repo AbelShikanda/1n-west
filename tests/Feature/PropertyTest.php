@@ -97,8 +97,9 @@ class PropertyTest extends TestCase
             'meta_image' => 'property-1.jpg',
         ]);
 
-        $response = $this->get('/');
+        $response = $this->get('/home');
 
-        $response->assertStatus(302);
+        $response->assertStatus(200);
+        $response->assertViewIs('home');
     }
 }

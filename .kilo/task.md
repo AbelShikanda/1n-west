@@ -44,17 +44,17 @@ Tasks:
 - [x] Commit on branch (push pending — GitHub PAT expired)
 - [ ] Push branch → PR → merge to master (blocked by expired PAT)
 
-### Module 2: Homepage (Public Frontend)
+### Module 2: Homepage (Public Frontend) — PARTIAL
 **File:** `resources/views/home.blade.php`
 
 Tasks:
-- [ ] Replace all `route('underConstruction')` links with real routes
-- [ ] Make "Move House", "Mortgage", "Explorer" feature links go to real pages
-- [ ] Make staff social links point to real agent pages
-- [ ] Make contact form submit to a real contact handler
-- [ ] Make hero slider properties dynamic from database
-- [ ] Write feature test: homepage loads with dynamic data
-- [ ] Branch → PR → merge to master
+- [x] Hero slider properties dynamic from database (`HomeController` + `aside` partial; Module 11 overlap)
+- [x] Feature links ("Move House"/"Mortgage"/"Explorer") point to real property routes (no `underConstruction`)
+- [x] Staff links point to real pages (`agent`, `contact`)
+- [x] Contact form submits to real handler (`contact.store`, CSRF/validation via existing controller)
+- [x] Feature tests: `tests/Feature/HomepageTest.php` (dynamic data, contact submit); existing `PropertyTest` homepage assertion updated
+- [ ] Staff data fully dynamic from DB (no dedicated staff model yet; links are real)
+- [ ] Branch → PR → merge to master (working directly on master per user request)
 
 ### Module 3: Properties Listing Page (Public Frontend) — COMPLETE
 **Already implemented in Module 1** — Dynamic property listing via `newProperties` partial.
@@ -120,14 +120,15 @@ Tasks:
 - [ ] Fix social media links
 - [ ] Branch → PR → merge to master
 
-### Module 11: Aside / Hero Slider Partial (Public Frontend)
+### Module 11: Aside / Hero Slider Partial (Public Frontend) — PARTIAL
 **File:** `resources/views/layouts/partials/aside.blade.php`
 
 Tasks:
-- [ ] Make hero slider properties dynamic from database (not hardcoded)
-- [ ] Make "Learn More" buttons link to property detail pages
-- [ ] Fix HTML bug: `<h2 class="price">Ksh 30,000<h2>` (missing closing slash)
-- [ ] Branch → PR → merge to master
+- [x] Hero slider properties dynamic from database (shared with homepage)
+- [x] "Learn More" buttons link to property detail pages
+- [x] Fix HTML bug: missing `</h2>` on price (resolved)
+- [x] Defensive rendering: parking shown only when true; breadcrumb uses route helpers
+- [ ] Branch → PR → merge to master (working directly on master per user request)
 
 ### Module 12: Blog Partial (Public Frontend)
 **File:** `resources/views/layouts/partials/blog.blade.php`
@@ -291,4 +292,4 @@ Tasks:
 - [ ] Branch → PR → merge to master
 
 ## Status
-**Modules 20–24** done on `master` (commits through `530f992` + follow-ups): RBAC, models/migrations/pivots/factories/seeders, Postgres verification (**45 tests, 102 assertions, OK on pgsql**). **Module 20** closed with `SlugGenerationTest`. **Module 17** progressed: admin Contacts wired (`admin.contacts.*`, views, `AdminContactsTest`). `.kilo/task.md` still needs reconciliation for Modules 1–19. **Next:** Module 25 `.env` hygiene (no secrets exposed), Module 26 coverage, continue Module 17 as backing controllers land, broader Modules 2/11/19 cleanup. Push may require valid PAT.
+**Modules 20–24** done on `master`; **Module 17** partial (admin Contacts wired). **Modules 2 & 11 (partial):** homepage hero dynamic, real feature/staff/contact links, homepage contact form posts to `contact.store`, hero/aside fixes + `HomepageTest`. **PostgreSQL suite:** `DB_CONNECTION=pgsql vendor/bin/phpunit --do-not-cache-result` → **55 tests, 125 assertions, OK** (includes Module 20 + admin contacts + homepage tests). `.kilo/task.md` still needs reconciliation for Modules 1–19. **Next:** Module 9/10 header/footer `underConstruction`/newsletter cleanup, Module 19 verification completeness, Module 25 history-scan (only if authorized), Module 26 coverage. Push may require valid PAT.

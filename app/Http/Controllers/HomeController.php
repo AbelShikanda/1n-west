@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Property;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -13,7 +12,14 @@ class HomeController extends Controller
     public function index()
     {
         $properties = Property::with(['category', 'type'])->latest()->take(6)->get();
+        $sliderProperties = $properties->isNotEmpty()
+            ? $properties
+            : Property::with(['category', 'type'])->latest()->take(3)->get();
 
-        return view('home', compact('properties'));
+        return view('home', [
+            'properties' => $properties,
+            'sliderProperties' => $sliderProperties,
+            'pageTitle' => 'Home',
+        ]);
     }
 }
