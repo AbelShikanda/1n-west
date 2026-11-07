@@ -270,14 +270,15 @@ Tasks:
 - [ ] Optional: `migrate:fresh --seed` on a disposable/test Postgres DB for full reset proof (skipped to avoid destructive reset of configured DB without explicit confirmation)
 - [ ] Branch → PR → merge to master (working directly on master per user request)
 
-### Module 25: Security & Configuration
+### Module 25: Security & Configuration — PARTIAL
 **Files:** `.env`, `.env.example`, `.gitignore`
 
 Tasks:
-- [ ] Add `.env` to `.gitignore` (verify it's not tracked)
-- [ ] Remove committed `.env` from git history if present
-- [ ] Use `.env.example` as the template for new environments
-- [ ] Branch → PR → merge to master
+- [x] `.env` is in `.gitignore` (line 96) and **not tracked** by git (`git ls-files .env` empty)
+- [x] `.env.example` exists as template
+- [ ] Audit committed history for prior `.env` leaks (requires explicit review; no destructive history rewrite performed)
+- [ ] Avoid logging/exposing secrets in tooling/output
+- [ ] Branch → PR → merge to master (working directly on master per user request)
 
 ### Module 26: Test Coverage
 **Files:** `tests/Feature/*`, `tests/Unit/*`
