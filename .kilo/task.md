@@ -229,21 +229,23 @@ Tasks:
 - [x] Super Admin gate bypass in `AuthServiceProvider`
 - [ ] Branch → PR → merge to master (working directly on master per user request)
 
-### Module 22: Missing Models & Migrations (Database)
+### Module 22: Missing Models & Migrations (Database) — COMPLETE (core)
 **New models/migrations**
 
 Tasks:
-- [ ] Create `PropertyImages` model + migration
-- [ ] Create `PropertyPropertyImages` pivot model + migration
-- [ ] Create `BlogCategories` model + migration
-- [ ] Create `Blogs` model + migration
-- [ ] Create `BlogImages` model + migration
-- [ ] Create `Contacts` model + migration
-- [ ] Create `VisitorData` model + migration
-- [ ] Create `VisitorJourney` model + migration
-- [ ] Create any other missing models from `notes/follow-up.txt` needed for MVP
-- [ ] Decide on `property_property_types` and `property_property_categories` pivot tables (remove or wire up)
-- [ ] Branch → PR → merge to master
+- [x] `PropertyImages` model + migration (exists; `Property::images()`/`primaryImage()` added)
+- [x] Property property pivot tables wired (`property_property_types`, `property_property_categories`) with FK/unique columns in migrations + minimal pivot models
+- [x] `BlogCategories` model + migration
+- [x] `Blog` (Blogs) model + migration
+- [x] `BlogImages` model + migration
+- [x] `Contacts` model + migration
+- [x] `VisitorData` model + migration
+- [x] `VisitorJourney` model + migration
+- [x] Factories added for Module 22 models; `PropertyFactory` now satisfies FKs
+- [x] `users.tenant` migration added (per `notes/follow-up.txt`/TODO); `User` fillable/cast updated
+- [x] Feature tests: `tests/Feature/Module22ModelsTest.php` (relations/factories/pivots)
+- [ ] Audit `notes/follow-up.txt` for any remaining MVP models (Country/CountryUsers deferred; PropertyPropertyImages not needed — using `property_images`)
+- [ ] Branch → PR → merge to master (working directly on master per user request)
 
 ### Module 23: Seeders (Database)
 **Files:** `database/seeders/*`

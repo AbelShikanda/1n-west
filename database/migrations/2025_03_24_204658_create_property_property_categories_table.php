@@ -15,7 +15,13 @@ class CreatePropertyPropertyCategoriesTable extends Migration
     {
         Schema::create('property_property_categories', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('property_id');
+            $table->unsignedBigInteger('property_category_id');
             $table->timestamps();
+
+            $table->foreign('property_id')->references('id')->on('properties')->onDelete('cascade');
+            $table->foreign('property_category_id')->references('id')->on('property_categories')->onDelete('cascade');
+            $table->unique(['property_id', 'property_category_id'], 'ppc_property_category_unique');
         });
     }
 

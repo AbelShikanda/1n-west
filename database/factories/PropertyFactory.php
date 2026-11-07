@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Property;
+use App\Models\PropertyCategories;
+use App\Models\PropertyTypes;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PropertyFactory extends Factory
@@ -22,8 +24,8 @@ class PropertyFactory extends Factory
     public function definition()
     {
         return [
-            'categories_id' => 1,
-            'types_id' => 1,
+            'categories_id' => PropertyCategories::factory(),
+            'types_id' => PropertyTypes::factory(),
             'price' => $this->faker->numberBetween(30000, 200000),
             'name' => $this->faker->unique()->words(3, true),
             'slug' => $this->faker->unique()->slug(),

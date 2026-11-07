@@ -41,4 +41,14 @@ class Property extends Model
     {
         return $this->belongsTo(PropertyTypes::class, 'types_id');
     }
+
+    public function images()
+    {
+        return $this->hasMany(PropertyImages::class, 'property_id');
+    }
+
+    public function primaryImage()
+    {
+        return $this->hasOne(PropertyImages::class, 'property_id')->where('is_primary', true);
+    }
 }

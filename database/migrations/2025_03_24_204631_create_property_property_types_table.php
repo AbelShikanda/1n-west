@@ -15,7 +15,13 @@ class CreatePropertyPropertyTypesTable extends Migration
     {
         Schema::create('property_property_types', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('property_id');
+            $table->unsignedBigInteger('property_type_id');
             $table->timestamps();
+
+            $table->foreign('property_id')->references('id')->on('properties')->onDelete('cascade');
+            $table->foreign('property_type_id')->references('id')->on('property_types')->onDelete('cascade');
+            $table->unique(['property_id', 'property_type_id'], 'ppt_property_type_unique');
         });
     }
 
