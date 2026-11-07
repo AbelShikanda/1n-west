@@ -42,4 +42,29 @@ class AuthProfileTest extends TestCase
         $response->assertStatus(200);
         $response->assertDontSee('searchProperties');
     }
+
+    public function test_header_shows_login_register_for_guests()
+    {
+        $response = $this->get('/home');
+
+        $response->assertStatus(200);
+        $response->assertSee(route('login'), false);
+        $response->assertSee(route('register'), false);
+        $response->assertDontSee('Profile', false);
+        $response->assertDontSee('Logout', false);
+    }
+
+    public function test_header_shows_profile_dropdown_for_authenticated_user()
+    {
+        $user = User::factory()->create(['name' => 'Jane Doe']);
+
+        $response = $this->actingAs($user)->get('/home');
+
+        $response->assertStatus(200);
+        $response->assertSee('Jane Doe', false);
+        $response->assertSee(route('profile'), false);
+        $response->assertSee(route('logout'), false);
+        $response->assertDontSee(route('login'), false);
+        $response->assertDontSee(route('register'), false);
+    }
 }
