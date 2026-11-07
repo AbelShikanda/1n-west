@@ -3,7 +3,9 @@
 @section('content')
     @include('layouts.partials.aside')
 
-    @include('layouts.partials.searchProperties')
+    @auth
+        @include('layouts.partials.searchProperties')
+    @endauth
 
     <div id="fh5co-features">
         <div class="container">
