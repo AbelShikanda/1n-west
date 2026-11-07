@@ -21,7 +21,7 @@ class AdminAuthController extends Controller
 
         if (auth()->guard('admin')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
             $user = auth()->guard('admin')->user();
-            if (!$user->is_admin == 1) {
+            if ($user->is_admin != 1) {
                 return redirect()->back()->with('error', 'You have to be an Admin');
             } else {
                 return redirect()->route('dashboard.index')->with('success', 'You are Logged in sucessfully.');

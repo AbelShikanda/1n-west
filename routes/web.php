@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\PropertyTypesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UnderConstructionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -81,10 +82,11 @@ Route::group(['prefix' => '/admin'], function () {
 Auth::routes(['verify' => true]);
 
 Route::redirect('/', '/home');
-Route::get('/home', [HomeController::class, 'index'])->middleware('verified')->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/agent', [PagesController::class, 'agent'])->name('agent');
 Route::get('/blog', [PagesController::class, 'blog'])->name('blog');
 Route::get('/contact', [PagesController::class, 'contact'])->name('contact');
 Route::get('/properties', [PropertyController::class, 'index'])->name('properties');
 Route::get('/properties/{slug}', [PropertyController::class, 'show'])->name('properties.show');
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile')->middleware('auth');
