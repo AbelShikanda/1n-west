@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Admin\Auth\AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PropertyCategoriesController;
+use App\Http\Controllers\Admin\PropertyTypesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\PropertyController;
@@ -41,6 +43,8 @@ Route::group(['prefix' => '/admin'], function () {
     Route::post('/login', [AdminAuthController::class, 'postLogin'])->name('postLogin');
     Route::post('/logout', [AdminAuthController::class, 'adminLogout'])->name('adminLogout');
     Route::resource('dashboard', DashboardController::class)->middleware('adminauth');
+    Route::resource('property-categories', PropertyCategoriesController::class)->middleware('adminauth');
+    Route::resource('property-types', PropertyTypesController::class)->middleware('adminauth');
 });
 
 // Route::group(['middleware' => 'adminauth'], function () {
