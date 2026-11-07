@@ -98,6 +98,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/agent', [PagesController::class, 'agent'])->name('agent');
 Route::get('/blog', [PagesController::class, 'blog'])->name('blog');
+Route::get('/blog/{slug}', [PagesController::class, 'show'])->name('blog.show');
 Route::get('/contact', [PagesController::class, 'contact'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/properties', [PropertyController::class, 'index'])->name('properties');

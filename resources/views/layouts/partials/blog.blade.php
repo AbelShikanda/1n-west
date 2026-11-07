@@ -1,5 +1,5 @@
 @php
-    $blogs = \App\Models\Blog::latest()->take(3)->get();
+    $blogPosts = isset($blogs) ? $blogs : collect();
 @endphp
 <div id="fh5co-blog-section" class="fh5co-section-gray">
     <div class="container">
@@ -14,22 +14,43 @@
     </div>
     <div class="container">
         <div class="row row-bottom-padded-md">
-            @foreach ($blogs as $blog)
+            @forelse ($blogPosts as $blog)
                 <div class="col-lg-4 col-md-4 col-sm-6">
                     <div class="fh5co-blog animate-box">
-                        <a href="#"><img class="img-responsive" src="{{ asset('1n-west/images/property-4.jpg') }}"
-                                alt="" /></a>
+                        <a href="{{ route('blog.show', $blog->slug) }}">
+                            <img class="img-responsive"
+                                 src="{{ asset('1n-west/images/' . ($blog->featured_image ?: 'blog-1.jpg')) }}"
+                                 alt="{{ $blog->title }}" />
+                        </a>
                         <div class="blog-text">
                             <div class="prod-title">
-                                <h3><a href="{{ route('underConstruction') }}">{{ $blog->title }}</a></h3>
-                                <span class="posted_by">{{ $blog->created_at?->format('M. d') }}</span>
+                                <h3><a href="{{ route('blog.show', $blog->slug) }}">{{ $blog->title }}</a></h3>
+                                @if ($blog->category)
+                                    <span class="posted_by">{{ $blog->category->name }} · {{ $blog->created_at?->format('M. d') }}</span>
+                                @else
+                                    <span class="posted_by">{{ $blog->created_at?->format('M. d') }}</span>
+                                @endif
                                 <p>{{ \Illuminate\Support\Str::limit($blog->content, 120) }}</p>
-                                <p><a href="{{ route('underConstruction') }}">Learn More...</a></p>
+                                <p><a href="{{ route('blog.show', $blog->slug) }}">Learn More...</a></p>
                             </div>
                         </div>
                     </div>
                 </div>
-            @endforeach
+            @empty
+                <div class="col-md-12 text-center animate-box">
+                    <div class="property">
+                        <div class="property-details">
+                            <h3>No blog posts available</h3>
+                            <p>Check back soon for our latest insights.</p>
+                        </div>
+                    </div>
+                </div>
+            @endforelse
         </div>
+        @if (method_exists($blogs, 'links'))
+            <div class="text-center mt-4">
+                {{ $blogs->links() }}
+            </div>
+        @endif
     </div>
 </div>
