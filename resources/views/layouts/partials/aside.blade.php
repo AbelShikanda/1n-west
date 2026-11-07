@@ -4,7 +4,7 @@
         <div class="flexslider js-fullheight">
             <ul class="slides">
                 @forelse ($slides as $property)
-                    <li style="background-image: url('{{ asset('1n-west/images/' . $property->meta_image) }}')">
+                    <li style="background-image: url('{{ property_image_url($property->meta_image) }}')">
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-4 col-md-offset-4 col-md-pull-4 js-fullheight slider-text">
@@ -37,18 +37,12 @@
                                 <div class="col-md-4 col-md-offset-4 col-md-pull-4 js-fullheight slider-text">
                                     <div class="slider-text-inner">
                                         <div class="desc">
-                                            <span class="status">Rent</span>
-                                            <h1>House in Nairobi</h1>
-                                            <h2 class="price">Ksh 70,000</h2>
-                                            <p>This house is available for rent in a quiet and secure neighborhood</p>
-                                            <p class="details">
-                                                <span>Spacious</span>
-                                                <span>4 Bedrooms</span>
-                                                <span>3 Bathrooms</span>
-                                                <span>Parking</span>
-                                            </p>
+                                            <span class="status">{{ setting('site_tagline', 'Welcome') }}</span>
+                                            <h1>{{ setting('site_name', '1N-West') }}</h1>
+                                            <p>New properties are being added. Browse our listings or talk to the team about availability.</p>
                                             <p>
-                                                <a class="btn btn-primary btn-lg" href="{{ route('properties') }}">Learn More</a>
+                                                <a class="btn btn-primary btn-lg" href="{{ route('properties') }}">View Properties</a>
+                                                <a class="btn btn-default btn-lg" href="{{ route('contact') }}">Contact Us</a>
                                             </p>
                                         </div>
                                     </div>

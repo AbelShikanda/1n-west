@@ -19,8 +19,8 @@ This protects master/main from incomplete or broken changes.
 
 ## Project Context
 - **Project path:** /home/abel/Desktop/projects/1n-west-apartments
-- **Framework:** Laravel 8.x (PHP ^7.3|^8.0)
-- **Database:** PostgreSQL (replacing MySQL) — update `.env` `DB_CONNECTION=pgsql`, migrate all tables
+- **Framework:** Laravel 12.x (PHP ^8.2)
+- **Database:** PostgreSQL (`nnwest` dev, `nnwest_test` tests via `.env.testing`)
 - **Frontend:** Blade + Sass via Laravel Mix, Bootstrap 5, jQuery
 - **Auth:** Dual guard — `web` (users) and `admin` (admins) with Spatie Laravel Permission
 - **Two themes:** Public site (FreeHTML5.co 1-North-West) and Admin dashboard (Tiny Dashboard)

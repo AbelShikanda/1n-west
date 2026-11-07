@@ -17,6 +17,34 @@
                 <div class="alert alert-success">{{ session('success') }}</div>
             @endif
 
+            <form method="GET" action="{{ route('admin.properties.index') }}" class="row g-2 align-items-end mb-3">
+                <div class="col-md-4">
+                    <label class="form-label">Search</label>
+                    <input type="text" name="search" class="form-control" value="{{ request('search') }}" placeholder="Name, town or county">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Category</label>
+                    <select name="category" class="form-select">
+                        <option value="">All categories</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}" @selected((string) request('category') === (string) $category->id)>{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Type</label>
+                    <select name="type" class="form-select">
+                        <option value="">All types</option>
+                        @foreach($types as $type)
+                            <option value="{{ $type->id }}" @selected((string) request('type') === (string) $type->id)>{{ $type->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">Filter</button>
+                </div>
+            </form>
+
             <div class="card shadow">
                 <div class="card-body">
                     <table class="table table-bordered">
@@ -31,7 +59,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($properties as $property)
+                            @forelse($properties as $property)
                                 <tr>
                                     <td>{{ $property->id }}</td>
                                     <td>{{ $property->name }}</td>
@@ -48,7 +76,9 @@
                                         </form>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr><td colspan="6" class="text-muted">No properties found. Add your first listing.</td></tr>
+                            @endforelse
                         </tbody>
                     </table>
                     {{ $properties->links() }}

@@ -29,7 +29,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($types as $type)
+                            @forelse($types as $type)
                                 <tr>
                                     <td>{{ $type->id }}</td>
                                     <td>{{ $type->name }}</td>
@@ -44,7 +44,9 @@
                                         </form>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr><td colspan="4" class="text-muted">No property types found.</td></tr>
+                            @endforelse
                         </tbody>
                     </table>
                     {{ $types->links() }}

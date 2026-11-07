@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class Property extends Model
 {
-    use HasFactory;
+    use HasFactory, HasSlug;
 
     protected $fillable = [
         'categories_id',
@@ -30,6 +32,21 @@ class Property extends Model
         'telegram',
         'website',
         'promotion',
+    ];
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
+    }
+
+    protected $casts = [
+        'parking' => 'boolean',
+        'whatsapp' => 'boolean',
+        'telegram' => 'boolean',
+        'website' => 'boolean',
+        'promotion' => 'boolean',
     ];
 
     public function category()

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -14,13 +15,22 @@ class AdminController extends Controller
 
         if ($request->filled('role')) {
             if ($request->role === 'admin') {
-                $query->where('is_admin', 1);
+                $query->where('is_admin', true);
             } elseif ($request->role === 'staff') {
-                $query->where('is_staff', 1);
+                $query->where('is_staff', true);
             }
         }
 
-        $admins = $query->latest()->paginate(10);
+        if ($request->filled('search')) {
+            $search = trim((string) $request->input('search'));
+            $query->where(function ($query) use ($search) {
+                $query->where('name', 'like', "%{$search}%")
+                    ->orWhere('username', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+
+        $admins = $query->latest()->paginate(10)->withQueryString();
 
         return view('admin.admins.index', compact('admins'));
     }
@@ -40,6 +50,9 @@ class AdminController extends Controller
             'is_admin' => 'boolean',
             'is_staff' => 'boolean',
         ]);
+
+        $validated['is_admin'] = $request->boolean('is_admin');
+        $validated['is_staff'] = $request->boolean('is_staff');
 
         Admin::create($validated);
 
@@ -73,6 +86,9 @@ class AdminController extends Controller
             unset($validated['password']);
         }
 
+        $validated['is_admin'] = $request->boolean('is_admin');
+        $validated['is_staff'] = $request->boolean('is_staff');
+
         $admin->update($validated);
 
         return redirect()
@@ -82,6 +98,12 @@ class AdminController extends Controller
 
     public function destroy(Admin $admin)
     {
+        if (Auth::guard('admin')->id() === $admin->id) {
+            return redirect()
+                ->route('admin.admins.index')
+                ->with('error', 'You cannot delete your own account.');
+        }
+
         $admin->delete();
 
         return redirect()

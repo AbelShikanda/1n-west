@@ -29,7 +29,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($categories as $category)
+                            @forelse($categories as $category)
                                 <tr>
                                     <td>{{ $category->id }}</td>
                                     <td>{{ $category->name }}</td>
@@ -44,7 +44,9 @@
                                         </form>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr><td colspan="4" class="text-muted">No property categories found.</td></tr>
+                            @endforelse
                         </tbody>
                     </table>
                     {{ $categories->links() }}

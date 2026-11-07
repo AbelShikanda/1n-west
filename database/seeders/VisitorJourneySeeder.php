@@ -32,7 +32,10 @@ class VisitorJourneySeeder extends Seeder
         ];
 
         foreach ($journeys as $journey) {
-            VisitorJourney::create($journey + ['visited_at' => now()]);
+            VisitorJourney::updateOrCreate(
+                $journey,
+                ['visited_at' => now()]
+            );
         }
     }
 }

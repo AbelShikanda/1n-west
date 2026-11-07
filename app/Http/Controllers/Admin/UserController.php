@@ -13,10 +13,18 @@ class UserController extends Controller
         $query = User::query();
 
         if ($request->filled('tenant')) {
-            $query->where('tenant', 1);
+            $query->where('tenant', true);
         }
 
-        $users = $query->latest()->paginate(10);
+        if ($request->filled('search')) {
+            $search = trim((string) $request->input('search'));
+            $query->where(function ($query) use ($search) {
+                $query->where('name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+
+        $users = $query->latest()->paginate(10)->withQueryString();
 
         return view('admin.users.index', compact('users'));
     }
@@ -34,6 +42,8 @@ class UserController extends Controller
             'password' => 'required|string|min:8',
             'tenant' => 'boolean',
         ]);
+
+        $validated['tenant'] = $request->boolean('tenant');
 
         User::create($validated);
 
@@ -64,6 +74,8 @@ class UserController extends Controller
         if (empty($validated['password'])) {
             unset($validated['password']);
         }
+
+        $validated['tenant'] = $request->boolean('tenant');
 
         $user->update($validated);
 

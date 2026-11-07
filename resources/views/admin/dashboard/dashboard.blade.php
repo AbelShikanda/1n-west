@@ -1,432 +1,225 @@
 @extends('admin.layouts.app')
 
 @section('content')
-            <div class="container-fluid">
-                <div class="row justify-content-center">
-                    <div class="col-12">
-                        <div class="row align-items-center mb-2">
-                            <div class="col">
-                                <h2 class="h5 page-title">Welcome!</h2>
-                            </div>
-                            <div class="col-auto">
-                                <form class="form-inline">
-                                    <div class="form-group d-none d-lg-inline">
-                                        <label for="reportrange" class="sr-only">Date Ranges</label>
-                                        <div id="reportrange" class="px-2 py-2 text-muted">
-                                            <span class="small"></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="button" class="btn btn-sm"><span
-                                                class="fe fe-refresh-ccw fe-16 text-muted"></span></button>
-                                        <button type="button" class="btn btn-sm mr-2"><span
-                                                class="fe fe-filter fe-16 text-muted"></span></button>
-                                    </div>
-                                </form>
-                            </div>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="row align-items-center mb-2">
+                <div class="col">
+                    <h2 class="h5 page-title">Welcome, {{ auth('admin')->user()?->name ?? 'Administrator' }}</h2>
+                    <p class="text-muted small mb-0">{{ now()->format('l, j F Y') }}</p>
+                </div>
+                <div class="col-auto">
+                    <a href="{{ route('admin.properties.create') }}" class="btn btn-primary">Add Property</a>
+                </div>
+            </div>
+
+            <div class="row my-4">
+                <div class="col-md-3">
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <small class="text-muted mb-1">Properties</small>
+                            <h3 class="card-title mb-0">{{ number_format($totalProperties) }}</h3>
+                            <a class="small" href="{{ route('admin.properties.index') }}">Manage properties</a>
                         </div>
-                        <!-- widgets -->
-                        <div class="row my-4">
-                            <div class="col-md-4">
-                                <div class="card shadow mb-4">
-                                    <div class="card-body">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-                                                <small class="text-muted mb-1">Page Views</small>
-                                                <h3 class="card-title mb-0">1168</h3>
-                                                <p class="small text-muted mb-0"><span
-                                                        class="fe fe-arrow-down fe-12 text-danger"></span><span>-18.9%
-                                                        Last week</span></p>
-                                            </div>
-                                            <div class="col-4 text-right">
-                                                <span class="sparkline inlineline"></span>
-                                            </div>
-                                        </div> <!-- /. row -->
-                                    </div> <!-- /. card-body -->
-                                </div> <!-- /. card -->
-                            </div> <!-- /. col -->
-                            <div class="col-md-4">
-                                <div class="card shadow mb-4">
-                                    <div class="card-body">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-                                                <small class="text-muted mb-1">Conversion</small>
-                                                <h3 class="card-title mb-0">68</h3>
-                                                <p class="small text-muted mb-0"><span
-                                                        class="fe fe-arrow-up fe-12 text-warning"></span><span>+1.9%
-                                                        Last week</span></p>
-                                            </div>
-                                            <div class="col-4 text-right">
-                                                <span class="sparkline inlinepie"></span>
-                                            </div>
-                                        </div> <!-- /. row -->
-                                    </div> <!-- /. card-body -->
-                                </div> <!-- /. card -->
-                            </div> <!-- /. col -->
-                            <div class="col-md-4">
-                                <div class="card shadow mb-4">
-                                    <div class="card-body">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-                                                <small class="text-muted mb-1">Visitors</small>
-                                                <h3 class="card-title mb-0">108</h3>
-                                                <p class="small text-muted mb-0"><span
-                                                        class="fe fe-arrow-up fe-12 text-success"></span><span>37.7%
-                                                        Last week</span></p>
-                                            </div>
-                                            <div class="col-4 text-right">
-                                                <span class="sparkline inlinebar"></span>
-                                            </div>
-                                        </div> <!-- /. row -->
-                                    </div> <!-- /. card-body -->
-                                </div> <!-- /. card -->
-                            </div> <!-- /. col -->
-                        </div> <!-- end section -->
-                        <!-- linechart -->
-                        <div class="my-4">
-                            <div id="lineChart"></div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <small class="text-muted mb-1">Page views this week</small>
+                            <h3 class="card-title mb-0">{{ number_format($pageViewsThisWeek) }}</h3>
+                            <p class="small mb-0 {{ $viewsChange >= 0 ? 'text-success' : 'text-danger' }}">
+                                <span class="fe fe-arrow-{{ $viewsChange >= 0 ? 'up' : 'down' }} fe-12"></span>
+                                {{ $viewsChange >= 0 ? '+' : '' }}{{ $viewsChange }}% vs last week
+                            </p>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="card shadow mb-4">
-                                    <div class="card-header">
-                                        <strong>Goal</strong>
-                                    </div>
-                                    <div class="card-body px-4">
-                                        <div class="row border-bottom">
-                                            <div class="col-4 text-center mb-3">
-                                                <p class="mb-1 small text-muted">Completions</p>
-                                                <span class="h3">26</span><br />
-                                                <span class="small text-muted">+20%</span>
-                                                <span class="fe fe-arrow-up text-success fe-12"></span>
-                                            </div>
-                                            <div class="col-4 text-center mb-3">
-                                                <p class="mb-1 small text-muted">Goal Value</p>
-                                                <span class="h3">$260</span><br />
-                                                <span class="small text-muted">+6%</span>
-                                                <span class="fe fe-arrow-up text-success fe-12"></span>
-                                            </div>
-                                            <div class="col-4 text-center mb-3">
-                                                <p class="mb-1 small text-muted">Conversion</p>
-                                                <span class="h3">6%</span><br />
-                                                <span class="small text-muted">-2%</span>
-                                                <span class="fe fe-arrow-down text-danger fe-12"></span>
-                                            </div>
-                                        </div>
-                                        <table class="table table-borderless mt-3 mb-1 mx-n1 table-sm">
-                                            <thead>
-                                                <tr>
-                                                    <th class="w-50">Goal</th>
-                                                    <th class="text-right">Conversion</th>
-                                                    <th class="text-right">Completions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Checkout</td>
-                                                    <td class="text-right">5%</td>
-                                                    <td class="text-right">260</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Add to Cart</td>
-                                                    <td class="text-right">55%</td>
-                                                    <td class="text-right">1260</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Contact</td>
-                                                    <td class="text-right">18%</td>
-                                                    <td class="text-right">460</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div> <!-- .card-body -->
-                                </div> <!-- .card -->
-                            </div> <!-- .col -->
-                            <div class="col-md-6">
-                                <div class="card shadow mb-4">
-                                    <div class="card-header">
-                                        <strong class="card-title">Top Selling</strong>
-                                        <a class="float-right small text-muted" href="#!">View all</a>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="list-group list-group-flush my-n3">
-                                            <div class="list-group-item">
-                                                <div class="row align-items-center">
-                                                    <div class="col-3 col-md-2">
-                                                        <img src="./assets/products/p1.jpg" alt="..."
-                                                            class="thumbnail-sm">
-                                                    </div>
-                                                    <div class="col">
-                                                        <strong>Fusion Backpack</strong>
-                                                        <div class="my-0 text-muted small">Gear, Bags</div>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                        <strong>+85%</strong>
-                                                        <div class="progress mt-2" style="height: 4px;">
-                                                            <div class="progress-bar" role="progressbar"
-                                                                style="width: 85%" aria-valuenow="85"
-                                                                aria-valuemin="0" aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="list-group-item">
-                                                <div class="row align-items-center">
-                                                    <div class="col-3 col-md-2">
-                                                        <img src="./assets/products/p2.jpg" alt="..."
-                                                            class="thumbnail-sm">
-                                                    </div>
-                                                    <div class="col">
-                                                        <strong>Luma hoodies</strong>
-                                                        <div class="my-0 text-muted small">Jackets, Men</div>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                        <strong>+75%</strong>
-                                                        <div class="progress mt-2" style="height: 4px;">
-                                                            <div class="progress-bar" role="progressbar"
-                                                                style="width: 75%" aria-valuenow="75"
-                                                                aria-valuemin="0" aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="list-group-item">
-                                                <div class="row align-items-center">
-                                                    <div class="col-3 col-md-2">
-                                                        <img src="./assets/products/p3.jpg" alt="..."
-                                                            class="thumbnail-sm">
-                                                    </div>
-                                                    <div class="col">
-                                                        <strong>Luma shorts</strong>
-                                                        <div class="my-0 text-muted small">Shorts, Men</div>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                        <strong>+62%</strong>
-                                                        <div class="progress mt-2" style="height: 4px;">
-                                                            <div class="progress-bar" role="progressbar"
-                                                                style="width: 62%" aria-valuenow="62"
-                                                                aria-valuemin="0" aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="list-group-item">
-                                                <div class="row align-items-center">
-                                                    <div class="col-3 col-md-2">
-                                                        <img src="./assets/products/p4.jpg" alt="..."
-                                                            class="thumbnail-sm">
-                                                    </div>
-                                                    <div class="col">
-                                                        <strong>Brown Trousers</strong>
-                                                        <div class="my-0 text-muted small">Trousers, Women</div>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                        <strong>+24%</strong>
-                                                        <div class="progress mt-2" style="height: 4px;">
-                                                            <div class="progress-bar" role="progressbar"
-                                                                style="width: 24%" aria-valuenow="24"
-                                                                aria-valuemin="0" aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> <!-- / .list-group -->
-                                    </div> <!-- / .card-body -->
-                                </div> <!-- .card -->
-                            </div> <!-- .col -->
-                        </div> <!-- .row -->
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="card shadow eq-card  mb-4">
-                                    <div class="card-header">
-                                        <strong>Region</strong>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="map-box my-5"
-                                            style="position:relative; max-width: 320px; max-height: 200px; margin:0 auto;">
-                                            <div id="dataMapUSA"></div>
-                                        </div>
-                                        <div class="row align-items-bottom my-2">
-                                            <div class="col">
-                                                <p class="mb-0">France</p>
-                                                <span class="my-0 text-muted small">+10%</span>
-                                            </div>
-                                            <div class="col-auto text-right">
-                                                <p class="mb-0">118</p>
-                                                <div class="progress mt-2" style="height: 4px;">
-                                                    <div class="progress-bar" role="progressbar" style="width: 85%"
-                                                        aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row align-items-center my-2">
-                                            <div class="col">
-                                                <p class="mb-0">Netherlands</p>
-                                                <span class="my-0 text-muted small">+0.6%</span>
-                                            </div>
-                                            <div class="col-auto text-right">
-                                                <p class="mb-0">1008</p>
-                                                <div class="progress mt-2" style="height: 4px;">
-                                                    <div class="progress-bar" role="progressbar" style="width: 85%"
-                                                        aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row align-items-center my-2">
-                                            <div class="col">
-                                                <p class="mb-0">Italy</p>
-                                                <span class="my-0 text-muted small">+1.6%</span>
-                                            </div>
-                                            <div class="col-auto text-right">
-                                                <p class="mb-0">67</p>
-                                                <div class="progress mt-2" style="height: 4px;">
-                                                    <div class="progress-bar" role="progressbar" style="width: 85%"
-                                                        aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row align-items-center my-2">
-                                            <div class="col">
-                                                <p class="mb-0">Spain</p>
-                                                <span class="my-0 text-muted small">+118%</span>
-                                            </div>
-                                            <div class="col-auto text-right">
-                                                <p class="mb-0">186</p>
-                                                <div class="progress mt-2" style="height: 4px;">
-                                                    <div class="progress-bar" role="progressbar" style="width: 85%"
-                                                        aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- .col -->
-                            <div class="col-md-4">
-                                <div class="card shadow eq-card mb-4">
-                                    <div class="card-header">
-                                        <strong class="card-title">Traffic</strong>
-                                        <a class="float-right small text-muted" href="#!">View all</a>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="chart-box mb-3" style="min-height:180px;">
-                                            <div id="customAngle"></div>
-                                        </div> <!-- .col -->
-                                        <div class="mx-auto">
-                                            <div class="row align-items-center mb-2">
-                                                <div class="col">
-                                                    <p class="mb-0">Direct</p>
-                                                    <span class="my-0 text-muted small">+10%</span>
-                                                </div>
-                                                <div class="col-auto text-right">
-                                                    <p class="mb-0">218</p>
-                                                    <span class="dot dot-md bg-success"></span>
-                                                </div>
-                                            </div>
-                                            <div class="row align-items-center mb-2">
-                                                <div class="col">
-                                                    <p class="mb-0">Organic Search</p>
-                                                    <span class="my-0 text-muted small">+0.6%</span>
-                                                </div>
-                                                <div class="col-auto text-right">
-                                                    <p class="mb-0">1002</p>
-                                                    <span class="dot dot-md bg-warning"></span>
-                                                </div>
-                                            </div>
-                                            <div class="row align-items-center mb-2">
-                                                <div class="col">
-                                                    <p class="mb-0">Referral</p>
-                                                    <span class="my-0 text-muted small">+1.6%</span>
-                                                </div>
-                                                <div class="col-auto text-right">
-                                                    <p class="mb-0">67</p>
-                                                    <span class="dot dot-md bg-primary"></span>
-                                                </div>
-                                            </div>
-                                            <div class="row align-items-center">
-                                                <div class="col">
-                                                    <p class="mb-0">Social</p>
-                                                    <span class="my-0 text-muted small">+118%</span>
-                                                </div>
-                                                <div class="col-auto text-right">
-                                                    <p class="mb-0">386</p>
-                                                    <span class="dot dot-md bg-secondary"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> <!-- .card-body -->
-                                </div> <!-- .card -->
-                            </div> <!-- .col-md -->
-                            <div class="col-md-4">
-                                <div class="card shadow eq-card mb-4">
-                                    <div class="card-header">
-                                        <strong>Browsers</strong>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="chart-box mt-3 mb-5">
-                                            <div id="radarChartWidget"></div>
-                                        </div> <!-- .col -->
-                                        <div class="mx-auto">
-                                            <div class="row align-items-center my-2">
-                                                <div class="col-6 col-xl-3 my-3">
-                                                    <span class="mb-0">Safari</span>
-                                                    <div class="progress my-2" style="height: 4px;">
-                                                        <div class="progress-bar" role="progressbar"
-                                                            style="width: 10%" aria-valuenow="10" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6 col-xl-3 my-3 text-right">
-                                                    <span>118</span><br />
-                                                    <span class="my-0 text-muted small">+10%</span>
-                                                </div>
-                                                <div class="col-6 col-xl-3 my-3">
-                                                    <span class="mb-0">Chrome</span>
-                                                    <div class="progress my-2" style="height: 4px;">
-                                                        <div class="progress-bar" role="progressbar"
-                                                            style="width: 36%" aria-valuenow="36" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6 col-xl-3 my-3 text-right">
-                                                    <span>1008</span><br />
-                                                    <span class="my-0 text-muted small">+36%</span>
-                                                </div>
-                                                <div class="col-6 col-xl-3 my-3">
-                                                    <span class="mb-0">Opera</span>
-                                                    <div class="progress my-2" style="height: 4px;">
-                                                        <div class="progress-bar" role="progressbar"
-                                                            style="width: 85%" aria-valuenow="85" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6 col-xl-3 my-3 text-right">
-                                                    <span>67</span><br />
-                                                    <span class="my-0 text-muted small">+1.6%</span>
-                                                </div>
-                                                <div class="col-6 col-xl-3 my-3">
-                                                    <span class="mb-0">Edge</span>
-                                                    <div class="progress my-2" style="height: 4px;">
-                                                        <div class="progress-bar" role="progressbar"
-                                                            style="width: 85%" aria-valuenow="85" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6 col-xl-3 my-3 text-right">
-                                                    <span>186</span><br />
-                                                    <span class="my-0 text-muted small">+118%</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> <!-- .card-body -->
-                                </div> <!-- .card -->
-                            </div> <!-- .col -->
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <small class="text-muted mb-1">Conversions this week</small>
+                            <h3 class="card-title mb-0">{{ number_format($conversionsThisWeek) }}</h3>
+                            <a class="small" href="{{ route('admin.contacts.index') }}">View enquiries</a>
                         </div>
-                    </div> <!-- /.col -->
-                </div> <!-- .row -->
-            </div> <!-- .container-fluid -->
-    @include('admin.layouts.partials.modal')
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <small class="text-muted mb-1">Visitors this week</small>
+                            <h3 class="card-title mb-0">{{ number_format($visitorsThisWeek) }}</h3>
+                            <span class="small text-muted">Tracked sessions</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow mb-4">
+                <div class="card-header"><strong>Page views (last 7 days)</strong></div>
+                <div class="card-body">
+                    <canvas id="viewsTrend" height="90"></canvas>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card shadow mb-4">
+                        <div class="card-header"><strong>Properties by category</strong></div>
+                        <div class="card-body">
+                            <table class="table table-sm mb-0">
+                                <tbody>
+                                    @forelse ($propertiesByCategory as $category)
+                                        <tr>
+                                            <td>{{ $category->name }}</td>
+                                            <td class="text-right">{{ $category->properties_count }}</td>
+                                        </tr>
+                                    @empty
+                                        <tr><td class="text-muted">No categories yet.</td></tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card shadow mb-4">
+                        <div class="card-header"><strong>Properties by type</strong></div>
+                        <div class="card-body">
+                            <table class="table table-sm mb-0">
+                                <tbody>
+                                    @forelse ($propertiesByType as $type)
+                                        <tr>
+                                            <td>{{ $type->name }}</td>
+                                            <td class="text-right">{{ $type->properties_count }}</td>
+                                        </tr>
+                                    @empty
+                                        <tr><td class="text-muted">No property types yet.</td></tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="card shadow mb-4">
+                        <div class="card-header d-flex justify-content-between">
+                            <strong>Recent properties</strong>
+                            <a class="small" href="{{ route('admin.properties.index') }}">View all</a>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-sm mb-0">
+                                <thead>
+                                    <tr><th>Name</th><th>Category</th><th>Price</th><th></th></tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($recentProperties as $property)
+                                        <tr>
+                                            <td>{{ $property->name }}</td>
+                                            <td>{{ $property->category?->name ?? '—' }}</td>
+                                            <td>Ksh {{ number_format($property->price) }}</td>
+                                            <td class="text-right">
+                                                <a class="small" href="{{ route('admin.properties.show', $property) }}">View</a>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr><td colspan="4" class="text-muted">No properties yet. Add your first listing.</td></tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card shadow mb-4">
+                        <div class="card-header"><strong>Top regions</strong></div>
+                        <div class="card-body">
+                            <table class="table table-sm mb-0">
+                                <tbody>
+                                    @forelse ($topRegions as $region)
+                                        <tr><td>{{ $region->region }}</td><td class="text-right">{{ $region->total }}</td></tr>
+                                    @empty
+                                        <tr><td class="text-muted">No visitor regions recorded.</td></tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card shadow mb-4">
+                        <div class="card-header"><strong>Traffic sources</strong></div>
+                        <div class="card-body">
+                            <table class="table table-sm mb-0">
+                                <tbody>
+                                    @forelse ($trafficSources as $source)
+                                        <tr><td>{{ $source->utm_source }}</td><td class="text-right">{{ $source->total }}</td></tr>
+                                    @empty
+                                        <tr><td class="text-muted">No traffic sources recorded.</td></tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card shadow mb-4">
+                        <div class="card-header"><strong>Browsers</strong></div>
+                        <div class="card-body">
+                            <table class="table table-sm mb-0">
+                                <tbody>
+                                    @forelse ($browsers as $browser)
+                                        <tr><td>{{ $browser->browser }}</td><td class="text-right">{{ $browser->total }}</td></tr>
+                                    @empty
+                                        <tr><td class="text-muted">No browser data recorded.</td></tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4"><div class="card shadow mb-4"><div class="card-body"><small class="text-muted">Admins</small><h3 class="mb-0">{{ $totalAdmins }}</h3></div></div></div>
+                <div class="col-md-4"><div class="card shadow mb-4"><div class="card-body"><small class="text-muted">Staff</small><h3 class="mb-0">{{ $totalStaff }}</h3></div></div></div>
+                <div class="col-md-4"><div class="card shadow mb-4"><div class="card-body"><small class="text-muted">Client accounts</small><h3 class="mb-0">{{ $totalUsers }}</h3></div></div></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ asset('admin/js/Chart.min.js') }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var canvas = document.getElementById('viewsTrend');
+        if (!canvas || typeof Chart === 'undefined') {
+            return;
+        }
+
+        new Chart(canvas.getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: @json($trend->pluck('label')),
+                datasets: [{
+                    label: 'Page views',
+                    data: @json($trend->pluck('views')),
+                    borderColor: '#0d6efd',
+                    backgroundColor: 'rgba(13,110,253,0.12)',
+                    fill: true,
+                    tension: 0.35
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { yAxes: [{ ticks: { beginAtZero: true } }] }
+            }
+        });
+    });
+</script>
 @endsection

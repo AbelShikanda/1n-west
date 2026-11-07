@@ -1,9 +1,11 @@
 # Decisions: 1n-west-apartments
 
 ## Architecture & Framework
-- Laravel 8.x chosen as the framework (per composer.json). Provides built-in auth, Eloquent ORM, Blade templating, routing, middleware, and artisan CLI.
-- MySQL as the database (per .env DB_CONNECTION=mysql).
-- Dual auth guards: web for public users (App\Models\User) and admin for administrators (App\Models\Admin). Admin guard configured in config/auth.php per follow-up.txt.
+- Laravel 12.x (upgraded from 8.x). Provides built-in auth, Eloquent ORM, Blade templating, routing, middleware, and artisan CLI.
+- PostgreSQL as the database (`nnwest` dev, `nnwest_test` test). The test database is configured via `.env.testing` so `RefreshDatabase` never wipes dev data.
+- Dual auth guards: web for public users (App\Models\User) and admin for administrators (App\Models\Admin). Admin guard configured in config/auth.php.
+- Auth scaffolding is hand-rolled (no `laravel/ui` dependency), with routes split into `routes/web.php`, `routes/auth.php`, and `routes/admin.php`.
+- Public site content (footer socials, contact details, site name, etc.) is stored in the `settings` table via `App\Models\Setting` and the `setting()` helpers in `app/Support/helpers.php`.
 
 ## Frontend Strategy
 - Two separate themes:

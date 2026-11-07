@@ -21,12 +21,12 @@ class BlogImagesSeeder extends Seeder
         }
 
         foreach ($blogIds as $index => $blogId) {
-            DB::table('blog_images')->insert([
-                'blog_id' => $blogId,
-                'image_path' => 'blog-image-' . ($index + 1) . '.jpg',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+            $path = 'blog-image-' . ($index + 1) . '.jpg';
+
+            DB::table('blog_images')->updateOrInsert(
+                ['blog_id' => $blogId, 'image_path' => $path],
+                ['created_at' => now(), 'updated_at' => now()]
+            );
         }
     }
 }

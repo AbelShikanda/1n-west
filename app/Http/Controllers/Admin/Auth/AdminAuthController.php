@@ -4,37 +4,61 @@ namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminAuthController extends Controller
 {
     public function getLogin()
     {
+        if (Auth::guard('admin')->check()) {
+            return redirect()->route('dashboard.index');
+        }
+
         return view('admin.auth.login');
     }
 
     public function postLogin(Request $request)
     {
-        $this->validate($request, [
+        $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        if (auth()->guard('admin')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
-            $user = auth()->guard('admin')->user();
-            if ($user->is_admin != 1) {
-                return redirect()->back()->with('error', 'You have to be an Admin');
-            } else {
-                return redirect()->route('dashboard.index')->with('success', 'You are Logged in sucessfully.');
-            }
-        } else {
-            return redirect()->back()->with('error', 'Whoops! Invalid Credentials');
+        $remember = $request->boolean('remember');
+
+        if (! Auth::guard('admin')->attempt($credentials, $remember)) {
+            return back()
+                ->withInput($request->only('email', 'remember'))
+                ->with('error', 'Whoops! Invalid credentials.');
         }
+
+        $admin = Auth::guard('admin')->user();
+
+        if (! $admin->is_admin) {
+            Auth::guard('admin')->logout();
+
+            return back()
+                ->withInput($request->only('email'))
+                ->with('error', 'You do not have permission to access the admin area.');
+        }
+
+        $request->session()->regenerate();
+
+        return redirect()
+            ->intended(route('dashboard.index'))
+            ->with('success', 'You are logged in successfully.');
     }
 
     public function adminLogout(Request $request)
     {
-        auth()->guard('admin')->logout();
-        // Session::flush();
-        return redirect(route('getLogin'))->with('success', 'You have loged out sucessfully');
+        Auth::guard('admin')->logout();
+
+        // Only forget the admin guard state so a simultaneous public-user
+        // session (the "web" guard) is not affected.
+        $request->session()->regenerateToken();
+
+        return redirect()
+            ->route('getLogin')
+            ->with('success', 'You have logged out successfully.');
     }
 }

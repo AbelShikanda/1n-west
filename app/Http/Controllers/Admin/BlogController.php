@@ -9,11 +9,23 @@ use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $blogs = Blog::with('category')->latest()->paginate(10);
+        $query = Blog::with('category');
 
-        return view('admin.blogs.index', compact('blogs'));
+        if ($request->filled('search')) {
+            $search = trim((string) $request->input('search'));
+            $query->where('title', 'like', "%{$search}%");
+        }
+
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->integer('category'));
+        }
+
+        $blogs = $query->latest()->paginate(10)->withQueryString();
+        $categories = BlogCategories::orderBy('name')->get();
+
+        return view('admin.blogs.index', compact('blogs', 'categories'));
     }
 
     public function create()

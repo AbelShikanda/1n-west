@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -16,25 +15,16 @@ class PropertyTypesSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('property_types')->insert([
-            [
-                'name' => 'Apartment',
-                'slug' => Str::slug('Apartment'),
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'name' => 'Villa',
-                'slug' => Str::slug('Villa'),
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'name' => 'Office Space',
-                'slug' => Str::slug('Office Space'),
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-        ]);
+        foreach (['Apartment', 'Villa', 'Office Space'] as $name) {
+            DB::table('property_types')->updateOrInsert(
+                ['slug' => Str::slug($name)],
+                [
+                    'name' => $name,
+                    'slug' => Str::slug($name),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]
+            );
+        }
     }
 }

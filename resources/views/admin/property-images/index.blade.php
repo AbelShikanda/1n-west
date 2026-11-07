@@ -30,7 +30,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($images as $image)
+                            @forelse($images as $image)
                                 <tr>
                                     <td>{{ $image->id }}</td>
                                     <td>{{ $image->property->name ?? '—' }}</td>
@@ -46,7 +46,9 @@
                                         </form>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr><td colspan="5" class="text-muted">No property images found.</td></tr>
+                            @endforelse
                         </tbody>
                     </table>
                     {{ $images->links() }}

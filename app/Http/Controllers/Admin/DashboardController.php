@@ -3,53 +3,107 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
+use App\Models\Blog;
+use App\Models\Contacts;
 use App\Models\Property;
 use App\Models\PropertyCategories;
 use App\Models\PropertyTypes;
-use App\Models\Admin;
-use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\VisitorData;
+use App\Models\VisitorJourney;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
-    /**
-     * function to display the dashboard
-     *
-     * This function does the following:
-     * - Step 1: Get property statistics
-     * - Step 2: Get admin statistics
-     * - Step 3: Get category/type breakdown
-     *
-     * @param  Parameter type  Parameter name Description of the parameter (optional)
-     * @return Return type Description of the return value (optional)
-     */
     public function index()
     {
-        // Step 1: Property statistics
+        $weekStart = now()->startOfWeek();
+        $previousWeekStart = now()->subWeek()->startOfWeek();
+
         $totalProperties = Property::count();
-        $totalViewsThisWeek = 0; // Would use VisitorJourney model
-        $totalConversionsThisWeek = 0; // Would use VisitorJourney model
+        $totalAdmins = Admin::where('is_admin', true)->count();
+        $totalStaff = Admin::where('is_staff', true)->count();
+        $totalUsers = User::count();
+        $totalBlogs = Blog::count();
+        $totalContacts = Contacts::count();
 
-        // Step 2: Admin statistics
-        $totalAdmins = Admin::count();
-        $activeAdmins = Admin::where('is_admin', 1)->count();
+        $pageViewsThisWeek = VisitorJourney::where('created_at', '>=', $weekStart)->count();
+        $pageViewsLastWeek = VisitorJourney::whereBetween('created_at', [$previousWeekStart, $weekStart])->count();
+        $conversionsThisWeek = VisitorJourney::where('event_type', 'conversion')
+            ->where('created_at', '>=', $weekStart)
+            ->count();
+        $visitorsThisWeek = VisitorData::where('created_at', '>=', $weekStart)->count();
 
-        // Step 3: Category/type breakdown
-        $propertiesByCategory = PropertyCategories::all()->map(function ($cat) {
-            $cat->total = Property::where('categories_id', $cat->id)->count();
-            return $cat;
+        $trend = collect(range(6, 0))->map(function ($daysAgo) {
+            $day = now()->subDays($daysAgo);
+
+            return [
+                'label' => $day->format('D'),
+                'views' => VisitorJourney::whereDate('created_at', $day->toDateString())->count(),
+            ];
         });
 
-        $propertiesByType = PropertyTypes::all()->map(function ($type) {
-            $type->total = Property::where('types_id', $type->id)->count();
-            return $type;
-        });
+        $propertiesByCategory = PropertyCategories::query()
+            ->withCount('properties')
+            ->orderBy('name')
+            ->get();
+
+        $propertiesByType = PropertyTypes::query()
+            ->withCount('properties')
+            ->orderBy('name')
+            ->get();
+
+        $recentProperties = Property::with(['category', 'type'])->latest()->take(5)->get();
+
+        $topRegions = VisitorData::query()
+            ->select('region', DB::raw('count(*) as total'))
+            ->whereNotNull('region')
+            ->groupBy('region')
+            ->orderByDesc('total')
+            ->take(5)
+            ->get();
+
+        $trafficSources = VisitorData::query()
+            ->select('utm_source', DB::raw('count(*) as total'))
+            ->whereNotNull('utm_source')
+            ->groupBy('utm_source')
+            ->orderByDesc('total')
+            ->take(5)
+            ->get();
+
+        $browsers = VisitorData::query()
+            ->select('browser', DB::raw('count(*) as total'))
+            ->whereNotNull('browser')
+            ->groupBy('browser')
+            ->orderByDesc('total')
+            ->take(5)
+            ->get();
+
+        $viewsChange = $pageViewsLastWeek > 0
+            ? round((($pageViewsThisWeek - $pageViewsLastWeek) / $pageViewsLastWeek) * 100, 1)
+            : ($pageViewsThisWeek > 0 ? 100 : 0);
 
         return view('admin.dashboard.dashboard', compact(
             'totalProperties',
             'totalAdmins',
-            'activeAdmins',
+            'totalStaff',
+            'totalUsers',
+            'totalBlogs',
+            'totalContacts',
+            'pageViewsThisWeek',
+            'pageViewsLastWeek',
+            'conversionsThisWeek',
+            'visitorsThisWeek',
+            'viewsChange',
+            'trend',
             'propertiesByCategory',
-            'propertiesByType'
+            'propertiesByType',
+            'recentProperties',
+            'topRegions',
+            'trafficSources',
+            'browsers'
         ));
     }
 }

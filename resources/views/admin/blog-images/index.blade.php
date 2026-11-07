@@ -29,7 +29,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($images as $image)
+                            @forelse($images as $image)
                                 <tr>
                                     <td>{{ $image->id }}</td>
                                     <td>{{ $image->blog->title ?? '—' }}</td>
@@ -44,7 +44,9 @@
                                         </form>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr><td colspan="4" class="text-muted">No blog images found.</td></tr>
+                            @endforelse
                         </tbody>
                     </table>
                     {{ $images->links() }}

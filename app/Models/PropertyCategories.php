@@ -22,4 +22,9 @@ class PropertyCategories extends Model
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
+
+    public function properties()
+    {
+        return $this->hasMany(Property::class, 'categories_id');
+    }
 }
