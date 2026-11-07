@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Models\Blog;
 
 class PagesController extends Controller
 {
@@ -29,6 +30,7 @@ class PagesController extends Controller
 
     public function blog()
     {
+        $blogs = Blog::with('category')->latest()->paginate(6);
         $pageTitle = 'Our Blogs';
         $breadcrumbLinks = [
             'DescriptionOne' => 'Develop a',
@@ -39,10 +41,18 @@ class PagesController extends Controller
         return view(
             'pages.blog',
             with([
+                'blogs' => $blogs,
                 'pageTitle' => $pageTitle,
                 'breadcrumbLinks' => $breadcrumbLinks,
             ]),
         );
+    }
+
+    public function show($slug)
+    {
+        $blog = Blog::with('category', 'images')->where('slug', $slug)->firstOrFail();
+
+        return view('pages.blog-detail', compact('blog'));
     }
 
     public function contact()

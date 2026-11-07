@@ -5,5 +5,5 @@
 
     @include('layouts.partials.searchProperties')
 
-    @include('layouts.partials.blog')
+    @include('layouts.partials.blog', ['blogs' => $blogs])
 @endsection
