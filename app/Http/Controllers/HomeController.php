@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Models\Property;
 
 class HomeController extends Controller
@@ -16,9 +17,12 @@ class HomeController extends Controller
             ? $properties
             : Property::with(['category', 'type'])->latest()->take(3)->get();
 
+        $recentBlogs = Blog::latest()->take(3)->get();
+
         return view('home', [
             'properties' => $properties,
             'sliderProperties' => $sliderProperties,
+            'recentBlogs' => $recentBlogs,
             'pageTitle' => 'Home',
         ]);
     }

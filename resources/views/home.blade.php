@@ -85,7 +85,7 @@
         </div>
     </div>
 
-    @include('layouts.partials.blog')
+    @include('layouts.partials.blog', ['blogs' => $recentBlogs])
 
     <!-- fh5co-blog-section -->
     <div id="fh5co-contact" class="fh5co-contact">
