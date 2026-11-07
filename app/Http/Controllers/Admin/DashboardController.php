@@ -34,17 +34,15 @@ class DashboardController extends Controller
         $activeAdmins = Admin::where('is_admin', 1)->count();
 
         // Step 3: Category/type breakdown
-        // Count properties by category using the categories_id foreign key
-        $propertiesByCategory = PropertyCategories::selectRaw('property_categories.id, property_categories.name, count(properties.id) as total')
-            ->leftJoin('properties', 'property_categories.id = properties.categories_id')
-            ->groupBy('property_categories.id')
-            ->get(['property_categories.id', 'property_categories.name', 'total']);
+        $propertiesByCategory = PropertyCategories::all()->map(function ($cat) {
+            $cat->total = Property::where('categories_id', $cat->id)->count();
+            return $cat;
+        });
 
-        // Count properties by type using the types_id foreign key
-        $propertiesByType = PropertyTypes::selectRaw('property_types.id, property_types.name, count(properties.id) as total')
-            ->leftJoin('properties', 'property_types.id = properties.types_id')
-            ->groupBy('property_types.id')
-            ->get(['property_types.id', 'property_types.name', 'total']);
+        $propertiesByType = PropertyTypes::all()->map(function ($type) {
+            $type->total = Property::where('types_id', $type->id)->count();
+            return $type;
+        });
 
         return view('admin.dashboard.dashboard', compact(
             'totalProperties',
