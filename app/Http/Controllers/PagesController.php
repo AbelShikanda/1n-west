@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Admin;
 
 class PagesController extends Controller
 {
     public function agent()
     {
+        $staff = Admin::where('is_staff', 1)->get();
         $pageTitle = 'Our Staff';
         $breadcrumbLinks = [
             'DescriptionOne' => 'Meet our staff',
@@ -18,6 +20,7 @@ class PagesController extends Controller
         return view(
             'pages.agent',
             with([
+                'staff' => $staff,
                 'pageTitle' => $pageTitle,
                 'breadcrumbLinks' => $breadcrumbLinks,
             ]),
