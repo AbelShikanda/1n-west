@@ -39,6 +39,7 @@ class HomepageTest extends TestCase
         $response->assertSee('Skyline Home');
         $response->assertSee(route('properties.show', $property->slug), false);
         $response->assertSee(route('contact.store'), false);
+        $response->assertDontSee('route(\'underConstruction\')', false);
     }
 
     public function test_homepage_contact_form_submits()
