@@ -87,6 +87,30 @@ class AdminAuthTest extends TestCase
         $this->assertGuest('admin');
     }
 
+    public function test_seeded_admin_can_login_with_default_password()
+    {
+        $this->seed(\Database\Seeders\CreateAdminSeeder::class);
+
+        $this->post('/admin/login', [
+            'email' => 'abelshikanda3@gmail.com',
+            'password' => 'password',
+        ])->assertRedirect(route('dashboard.index'));
+
+        $this->assertAuthenticated('admin');
+    }
+
+    public function test_reseeding_does_not_overwrite_an_existing_admin_password()
+    {
+        $this->seed(\Database\Seeders\CreateAdminSeeder::class);
+
+        $admin = Admin::where('email', 'abelshikanda3@gmail.com')->firstOrFail();
+        $admin->update(['password' => 'changed-password']);
+
+        $this->seed(\Database\Seeders\CreateAdminSeeder::class);
+
+        $this->assertTrue(\Illuminate\Support\Facades\Hash::check('changed-password', $admin->fresh()->password));
+    }
+
     public function test_admin_login_with_remember_me_sets_remember_token()
     {
         $admin = Admin::create([
