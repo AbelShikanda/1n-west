@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Admin;
 use App\Models\PropertyCategories;
 use App\Models\PropertyTypes;
 use App\Models\Property;
@@ -101,5 +102,31 @@ class PropertyTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertViewIs('home');
+    }
+
+    public function test_homepage_shows_dynamic_staff_from_db()
+    {
+        Admin::factory()->create([
+            'name' => 'Jean Smith',
+            'email' => 'jean@example.com',
+            'password' => bcrypt('password'),
+            'is_admin' => 0,
+            'is_staff' => 1,
+        ]);
+
+        $response = $this->get('/home');
+
+        $response->assertStatus(200);
+        $response->assertSee('Jean Smith');
+    }
+
+    public function test_homepage_shows_empty_state_when_no_staff()
+    {
+        Admin::where('is_staff', 1)->delete();
+
+        $response = $this->get('/home');
+
+        $response->assertStatus(200);
+        $response->assertSee('No staff available');
     }
 }

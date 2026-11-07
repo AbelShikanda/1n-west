@@ -70,17 +70,32 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-3 text-center animate-box" data-animate-effect="fadeIn">
-                    <div class="fh5co-staff">
-                        <img class="img-responsive" src="{{ asset('1n-west/images/user-1.jpg') }}" alt="Staff member" />
-                        <h3>Jean Smith</h3>
-                        <p>The caretaker</p>
-                        <p class="fh5co-social-icons">
-                            <a href="{{ route('agent') }}" title="Agent profile"><i class="icon-user"></i></a>
-                            <a href="{{ route('contact') }}" title="Contact us"><i class="icon-mail"></i></a>
-                        </p>
+                @if($staff->isNotEmpty())
+                    @foreach($staff as $member)
+                        <div class="col-sm-3 text-center animate-box" data-animate-effect="fadeIn">
+                            <div class="fh5co-staff">
+                                <img class="img-responsive"
+                                     src="{{ $member->avatar ? asset($member->avatar) : asset('1n-west/images/user-1.jpg') }}"
+                                     alt="{{ $member->name }}">
+                                <h3>{{ $member->name }}</h3>
+                                <p>{{ $member->is_staff ? 'Staff' : '' }}</p>
+                                <p class="fh5co-social-icons">
+                                    <a href="{{ route('agent') }}" title="Agent profile"><i class="icon-user"></i></a>
+                                    <a href="{{ route('contact') }}" title="Contact us"><i class="icon-mail"></i></a>
+                                </p>
+                            </div>
+                        </div>
+                    @endforeach
+                @else
+                    <div class="col-md-12 text-center animate-box">
+                        <div class="property">
+                            <div class="property-details">
+                                <h3>No staff available</h3>
+                                <p>Check back soon for our team.</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                @endif
             </div>
         </div>
     </div>
