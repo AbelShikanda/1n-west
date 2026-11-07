@@ -86,4 +86,48 @@ class AdminAuthTest extends TestCase
         $response->assertRedirect(route('getLogin'));
         $this->assertGuest('admin');
     }
+
+    public function test_admin_login_with_remember_me_sets_remember_token()
+    {
+        $admin = Admin::create([
+            'name' => 'Admin',
+            'username' => 'admin',
+            'email' => 'admin@test.com',
+            'password' => bcrypt('password'),
+            'is_admin' => 1,
+        ]);
+
+        $this->post('/admin/login', [
+            'email' => 'admin@test.com',
+            'password' => 'password',
+            'remember' => 1,
+        ])->assertRedirect(route('dashboard.index'));
+
+        $this->assertAuthenticated('admin');
+        $this->assertNotNull($admin->fresh()->remember_token);
+    }
+
+    public function test_client_logout_does_not_log_out_admin()
+    {
+        $admin = Admin::create([
+            'name' => 'Admin',
+            'username' => 'admin',
+            'email' => 'admin@test.com',
+            'password' => bcrypt('password'),
+            'is_admin' => 1,
+        ]);
+
+        $this->actingAs($admin, 'admin')->post('/logout');
+
+        $this->assertAuthenticated('admin');
+    }
+
+    public function test_admin_logout_does_not_log_out_client()
+    {
+        $user = \App\Models\User::factory()->create();
+
+        $this->actingAs($user)->post('/admin/logout');
+
+        $this->assertAuthenticated('web');
+    }
 }

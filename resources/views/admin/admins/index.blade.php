@@ -31,7 +31,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($admins as $admin)
+                            @forelse($admins as $admin)
                                 <tr>
                                     <td>{{ $admin->id }}</td>
                                     <td>{{ $admin->name }}</td>
@@ -54,7 +54,9 @@
                                         </form>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr><td colspan="6" class="text-muted">No admins found.</td></tr>
+                            @endforelse
                         </tbody>
                     </table>
                     {{ $admins->links() }}

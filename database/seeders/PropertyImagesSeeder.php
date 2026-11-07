@@ -20,21 +20,23 @@ class PropertyImagesSeeder extends Seeder
             return;
         }
 
-        DB::table('property_images')->insert([
-            [
-                'property_id' => $propertyIds[0],
-                'image_path' => 'property-1.jpg',
-                'is_primary' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'property_id' => $propertyIds[1] ?? $propertyIds[0],
-                'image_path' => 'property-2.jpg',
-                'is_primary' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-        ]);
+        $images = [
+            ['property_id' => $propertyIds[0], 'image_path' => 'property-1.jpg'],
+            ['property_id' => $propertyIds[1] ?? $propertyIds[0], 'image_path' => 'property-2.jpg'],
+        ];
+
+        foreach ($images as $image) {
+            DB::table('property_images')->updateOrInsert(
+                [
+                    'property_id' => $image['property_id'],
+                    'image_path' => $image['image_path'],
+                ],
+                [
+                    'is_primary' => 1,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]
+            );
+        }
     }
 }

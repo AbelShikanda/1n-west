@@ -571,3 +571,5 @@ notes
 =======
 .bak
 .bakignore
+# Testing environment secrets
+.env.testing

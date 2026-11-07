@@ -2,15 +2,12 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BlogCategories;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
 class BlogCategoriesSeeder extends Seeder
 {
-    use HasFactory;
-
     /**
      * Run the database seeds.
      *
@@ -18,13 +15,11 @@ class BlogCategoriesSeeder extends Seeder
      */
     public function run()
     {
-        $categories = ['Real Estate', 'Property Management', 'Home Improvement', 'Market Trends'];
-
-        foreach ($categories as $name) {
-            \App\Models\BlogCategories::create([
-                'name' => $name,
-                'slug' => Str::slug($name),
-            ]);
+        foreach (['Real Estate', 'Property Management', 'Home Improvement', 'Market Trends'] as $name) {
+            BlogCategories::updateOrCreate(
+                ['slug' => Str::slug($name)],
+                ['name' => $name]
+            );
         }
     }
 }

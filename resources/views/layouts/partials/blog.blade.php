@@ -19,7 +19,7 @@
                     <div class="fh5co-blog animate-box">
                         <a href="{{ route('blog.show', $blog->slug) }}">
                             <img class="img-responsive"
-                                 src="{{ asset('1n-west/images/' . ($blog->featured_image ?: 'blog-1.jpg')) }}"
+                                 src="{{ property_image_url($blog->featured_image, 'https://placehold.co/600x400/e9ecef/495057?text=1N-West+Blog') }}"
                                  alt="{{ $blog->title }}" />
                         </a>
                         <div class="blog-text">
@@ -30,7 +30,7 @@
                                 @else
                                     <span class="posted_by">{{ $blog->created_at?->format('M. d') }}</span>
                                 @endif
-                                <p>{{ \Illuminate\Support\Str::limit($blog->content, 120) }}</p>
+                                <p>{{ \Illuminate\Support\Str::limit($blog->content ?: 'Read this article on our blog.', 120) }}</p>
                                 <p><a href="{{ route('blog.show', $blog->slug) }}">Learn More...</a></p>
                             </div>
                         </div>

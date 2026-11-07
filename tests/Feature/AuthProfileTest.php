@@ -40,7 +40,17 @@ class AuthProfileTest extends TestCase
     {
         $response = $this->get('/home');
         $response->assertStatus(200);
-        $response->assertDontSee('searchProperties');
+        $response->assertDontSee('fh5co-search-map');
+    }
+
+    public function test_search_section_visible_for_authenticated_users()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get('/home');
+
+        $response->assertStatus(200);
+        $response->assertSee('fh5co-search-map');
     }
 
     public function test_header_shows_login_register_for_guests()

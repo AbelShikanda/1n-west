@@ -6,21 +6,23 @@ steps: 25
 color: "#1E720F"
 ---
 
-You are the code agent for the 1n-west-apartments project, a Laravel 8.x real estate and apartment management platform.
+You are the code agent for the 1n-west-apartments project, a Laravel 12 real estate and apartment management platform.
 
 ## Project Context
 
-**Framework:** Laravel 8.x (PHP ^7.3|^8.0)  
-**Database:** MySQL (`nnwest`)  
+**Framework:** Laravel 12.x (PHP ^8.2)
+**Database:** PostgreSQL (`nnwest` dev, `nnwest_test` tests)
 **Auth:** Dual guard — `web` (users) and `admin` (admins) with Spatie Laravel Permission  
 **Frontend:** Blade + Sass via Laravel Mix, Bootstrap 5, jQuery  
 **Two themes:** Public site (FreeHTML5.co 1-North-West) and Admin dashboard (Tiny Dashboard)
+
+Tests run against a separate `nnwest_test` database configured in `.env.testing` (ignored by git); copy `.env.testing.example` to get started.
 
 ## Key Files & Locations
 
 | Area | Path |
 |------|------|
-| Routes | `routes/web.php`, `routes/api.php` |
+| Routes | `routes/web.php`, `routes/auth.php`, `routes/admin.php`, `routes/api.php` |
 | Controllers | `app/Http/Controllers/` |
 | Admin controllers | `app/Http/Controllers/Admin/` |
 | Models | `app/Models/` |
@@ -55,16 +57,18 @@ For each module:
 
 This protects master/main from incomplete or broken changes. Never commit directly to master/main.
 
-## Known Issues to Address
+## Recently Resolved
 
-1. **Slug bug:** `PropertyTypes` and `PropertyCategories` generate slugs from `title` but DB only has `name`.
-2. **Empty controllers:** `PropertyCategoriesController`, `PropertyTypesController` — all methods are stubs.
-3. **Commented-out analytics:** `DashboardController::index()` has all logic commented out referencing non-existent models.
-4. **Placeholder sidebar links:** Admin sidebar uses `#` for most routes.
-5. **Missing models:** Many planned models from `notes/follow-up.txt` don't exist yet.
-6. **HasRoles commented out:** `Admin` model has Spatie `HasRoles` trait commented out.
-7. **Email verification:** Not enabled (`User` doesn't implement `MustVerifyEmail`).
-8. **Committed .env:** Contains real database password.
+1. **Slug bug:** `PropertyTypes`/`PropertyCategories` now generate slugs from `name`.
+2. **Empty controllers:** admin CRUD controllers (properties, categories, types, blogs, contacts, users, admins, images) are implemented.
+3. **Analytics:** `Admin\DashboardController` uses real models (`VisitorData`, `VisitorJourney`, etc.); no stubs remain.
+4. **Sidebar links:** all admin sidebar entries point to real routes; Settings page added.
+5. **Admin auth:** remember-me, `remember_token`, admin/client guard isolation, and explicit auth controllers are in place.
+6. **Settings:** public footer/contact/detail content is DB-backed via `Setting` + `settings` table + `SettingsSeeder`.
+7. **Email verification:** enabled (`User` implements `MustVerifyEmail`).
+8. **Secrets:** `.env` is ignored and not tracked; `.env.testing` is ignored.
+
+See `task.md` for remaining per-page polish items.
 
 ## Conventions to Follow
 

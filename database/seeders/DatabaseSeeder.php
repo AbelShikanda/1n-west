@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CreateAdminSeeder::class,
             RolesAndPermissionsSeeder::class,
+            SettingsSeeder::class,
             PropertyCategoriesSeeder::class,
             PropertyTypesSeeder::class,
             PropertiesSeeder::class,

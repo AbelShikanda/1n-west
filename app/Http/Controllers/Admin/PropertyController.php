@@ -10,11 +10,32 @@ use Illuminate\Http\Request;
 
 class PropertyController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $properties = Property::with(['category', 'type'])->latest()->paginate(10);
+        $query = Property::with(['category', 'type']);
 
-        return view('admin.properties.index', compact('properties'));
+        if ($request->filled('search')) {
+            $search = trim((string) $request->input('search'));
+            $query->where(function ($query) use ($search) {
+                $query->where('name', 'like', "%{$search}%")
+                    ->orWhere('town', 'like', "%{$search}%")
+                    ->orWhere('county', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('category')) {
+            $query->where('categories_id', $request->integer('category'));
+        }
+
+        if ($request->filled('type')) {
+            $query->where('types_id', $request->integer('type'));
+        }
+
+        $properties = $query->latest()->paginate(10)->withQueryString();
+        $categories = PropertyCategories::orderBy('name')->get();
+        $types = PropertyTypes::orderBy('name')->get();
+
+        return view('admin.properties.index', compact('properties', 'categories', 'types'));
     }
 
     public function create()
@@ -36,25 +57,32 @@ class PropertyController extends Controller
             'country' => 'required|string|max:255',
             'county' => 'required|string|max:255',
             'town' => 'required|string|max:255',
-            'rooms' => 'nullable|integer',
-            'baths' => 'nullable|integer',
+            'rooms' => 'nullable|integer|min:0',
+            'baths' => 'nullable|integer|min:0',
+            'living_rooms' => 'nullable|integer|min:0',
+            'kitchens' => 'nullable|integer|min:0',
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
             'meta_image' => 'nullable|string|max:255',
             'parking' => 'boolean',
+            'whatsapp' => 'boolean',
+            'telegram' => 'boolean',
+            'website' => 'boolean',
             'promotion' => 'boolean',
         ]);
 
-        Property::create(array_merge($validated, [
+        $validated = array_merge($validated, [
             'meta_description' => $validated['meta_description'] ?? '',
             'meta_keywords' => $validated['meta_keywords'] ?? '',
             'meta_image' => $validated['meta_image'] ?? '',
-            'parking' => $validated['parking'] ?? 0,
-            'whatsapp' => $validated['whatsapp'] ?? 0,
-            'telegram' => $validated['telegram'] ?? 0,
-            'website' => $validated['website'] ?? 0,
-            'promotion' => $validated['promotion'] ?? 0,
-        ]));
+            'parking' => $request->boolean('parking'),
+            'whatsapp' => $request->boolean('whatsapp'),
+            'telegram' => $request->boolean('telegram'),
+            'website' => $request->boolean('website'),
+            'promotion' => $request->boolean('promotion'),
+        ]);
+
+        Property::create($validated);
 
         return redirect()
             ->route('admin.properties.index')
@@ -87,14 +115,25 @@ class PropertyController extends Controller
             'country' => 'required|string|max:255',
             'county' => 'required|string|max:255',
             'town' => 'required|string|max:255',
-            'rooms' => 'nullable|integer',
-            'baths' => 'nullable|integer',
+            'rooms' => 'nullable|integer|min:0',
+            'baths' => 'nullable|integer|min:0',
+            'living_rooms' => 'nullable|integer|min:0',
+            'kitchens' => 'nullable|integer|min:0',
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
             'meta_image' => 'nullable|string|max:255',
             'parking' => 'boolean',
+            'whatsapp' => 'boolean',
+            'telegram' => 'boolean',
+            'website' => 'boolean',
             'promotion' => 'boolean',
         ]);
+
+        $validated['parking'] = $request->boolean('parking');
+        $validated['whatsapp'] = $request->boolean('whatsapp');
+        $validated['telegram'] = $request->boolean('telegram');
+        $validated['website'] = $request->boolean('website');
+        $validated['promotion'] = $request->boolean('promotion');
 
         $property->update($validated);
 

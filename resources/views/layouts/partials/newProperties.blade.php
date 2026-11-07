@@ -1,3 +1,4 @@
+{{-- Property cards are shown on the home and listing pages. --}}
 <div id="fh5co-properties" class="fh5co-section-gray">
     <div class="container">
         <div class="row">
@@ -9,60 +10,48 @@
             </div>
         </div>
         <div class="row">
-            @if (isset($properties) && $properties->count() > 0)
-                @foreach ($properties as $property)
-                    <div class="col-md-4 animate-box">
-                        <div class="property">
-                            <a href="{{ route('properties.show', $property->slug) }}" class="fh5co-property"
-                                style="background-image: url('{{ asset('1n-west/images/' . $property->meta_image) }}')">
-                                @if ($property->promotion)
-                                    <span class="status">Featured</span>
-                                @else
-                                    <span class="status">For Rent</span>
-                                @endif
-                                <ul class="list-details">
-                                    <li>{{ $property->rooms }} Bedroom{{ $property->rooms > 1 ? 's' : '' }}</li>
-                                    <li>{{ $property->baths }} Bathroom{{ $property->baths > 1 ? 's' : '' }}</li>
-                                    <li>Parking</li>
-                                </ul>
-                            </a>
-                            <div class="property-details">
-                                <h3>{{ $property->name }}</h3>
-                                <span class="price">Ksh {{ number_format($property->price) }}</span>
-                                <p>{{ $property->meta_description }}</p>
-                                <span class="address"><i class="icon-map"></i>{{ $property->town }}, {{ $property->county }}</span>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            @else
-                <!-- ----------------------------------------------------- -->
+            @forelse ($properties ?? [] as $property)
                 <div class="col-md-4 animate-box">
                     <div class="property">
-                        <a href="{{ route('underConstruction') }}" class="fh5co-property"
-                            style="background-image: url('{{ asset('1n-west/images/property-1.jpg') }}')">
-                            <span class="status">Rent</span>
+                        <a href="{{ route('properties.show', $property->slug) }}" class="fh5co-property"
+                            style="background-image: url('{{ property_image_url($property->meta_image) }}')">
+                            @if ($property->promotion)
+                                <span class="status">Featured</span>
+                            @elseif ($property->price > 0)
+                                <span class="status">For Rent</span>
+                            @endif
                             <ul class="list-details">
-                                <li>Spacious</li>
-                                <li></li>
-                                <li>5 Bedroom:</li>
-                                <li>4 Bathroom:</li>
-                                <li>parking:</li>
+                                <li>{{ $property->rooms }} Bedroom{{ $property->rooms > 1 ? 's' : '' }}</li>
+                                <li>{{ $property->baths }} Bathroom{{ $property->baths > 1 ? 's' : '' }}</li>
+                                @if ($property->parking)
+                                    <li>Parking</li>
+                                @endif
                             </ul>
                         </a>
                         <div class="property-details">
-                            <h3>Properties Near in Mall</h3>
-                            <span class="price">Ksh 50,000</span>
-                            <p>
-                                This 3-bedroom, 2-bathroom house is available for
-                                rent in a quiet and secure neighborhood
-                            </p>
-                            <span class="address"><i class="icon-map"></i>Kenyatta Dr8. Nairobi, 00100 NBO, KEN</span>
+                            <h3>{{ $property->name }}</h3>
+                            <span class="price">Ksh {{ number_format($property->price) }}</span>
+                            <p>{{ \Illuminate\Support\Str::limit($property->meta_description, 100) }}</p>
+                            <span class="address"><i class="icon-map"></i>{{ collect([$property->town, $property->county])->filter()->implode(', ') ?: 'Location not provided' }}</span>
                         </div>
                     </div>
                 </div>
-                <!-- ----------------------------------------------------- -->
-            @endif
+            @empty
+                <div class="col-md-12 text-center animate-box">
+                    <div class="property">
+                        <div class="property-details">
+                            <h3>No properties available yet</h3>
+                            <p class="mb-3">Our listings are being updated. Please check back soon.</p>
+                            <a class="btn btn-primary" href="{{ route('contact') }}">Ask about availability</a>
+                        </div>
+                    </div>
+                </div>
+            @endforelse
         </div>
+        @if (isset($properties) && method_exists($properties, 'links'))
+            <div class="text-center mt-4">
+                {{ $properties->links() }}
+            </div>
+        @endif
     </div>
 </div>

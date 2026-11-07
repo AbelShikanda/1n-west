@@ -29,7 +29,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($permissions as $permission)
+                            @forelse($permissions as $permission)
                                 <tr>
                                     <td>{{ $permission->id }}</td>
                                     <td>{{ $permission->name }}</td>
@@ -44,7 +44,9 @@
                                         </form>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr><td colspan="4" class="text-muted">No permissions found.</td></tr>
+                            @endforelse
                         </tbody>
                     </table>
                     {{ $permissions->links() }}

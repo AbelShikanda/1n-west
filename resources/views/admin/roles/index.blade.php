@@ -32,7 +32,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($roles as $role)
+                            @forelse($roles as $role)
                                 <tr>
                                     <td>{{ $role->id }}</td>
                                     <td>{{ $role->name }}</td>
@@ -47,7 +47,9 @@
                                         </form>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr><td colspan="4" class="text-muted">No roles found.</td></tr>
+                            @endforelse
                         </tbody>
                     </table>
                     {{ $roles->links() }}

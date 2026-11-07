@@ -30,7 +30,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($blogs as $blog)
+                            @forelse($blogs as $blog)
                                 <tr>
                                     <td>{{ $blog->id }}</td>
                                     <td>{{ $blog->title }}</td>
@@ -46,7 +46,9 @@
                                         </form>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr><td colspan="5" class="text-muted">No blog articles found.</td></tr>
+                            @endforelse
                         </tbody>
                     </table>
                     {{ $blogs->links() }}

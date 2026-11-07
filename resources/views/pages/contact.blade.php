@@ -4,11 +4,21 @@
     @include('layouts.partials.aside')
 
     @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+        <div class="container mt-3">
+            <div class="alert alert-success">{{ session('success') }}</div>
+        </div>
     @endif
     @if(session('error'))
-        <div class="alert alert-danger">{{ session('error') }}</div>
+        <div class="container mt-3">
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        </div>
     @endif
+
+    @php
+        $contactPhone = setting('contact_phone');
+        $contactEmail = setting('contact_email');
+        $contactWebsite = setting('contact_website');
+    @endphp
 
     <div id="fh5co-contact">
         <div class="container">
@@ -28,13 +38,24 @@
                         <p>
                             Speak to an available agent to
                             provide the guidance you need to make an informed real estate decision.
-                            we are only a message away 24/7.
+                            We are only a message away 24/7.
                         </p>
                         <ul class="contact-info">
-                            <li><i class="icon-location-pin"></i>Telgat street, Suite 721 Kakamega KE 7905-00200</li>
-                            <li><i class="icon-phone2"></i><a href="tel:+254722729567">+254 722 729 567</a></li>
-                            <li><i class="icon-mail"></i><a href="mailto:info@1n-west.com">info@1n-west.com</a></li>
-                            <li><i class="icon-globe2"></i><a href="https://www.1n-west.com">www.1n-west.com</a></li>
+                            @if (setting('contact_address'))
+                                <li><i class="icon-location-pin"></i>{{ setting('contact_address') }}</li>
+                            @endif
+                            @if ($contactPhone)
+                                <li><i class="icon-phone2"></i><a href="tel:{{ preg_replace('/[^\d+]/', '', $contactPhone) }}">{{ $contactPhone }}</a></li>
+                            @endif
+                            @if ($contactEmail)
+                                <li><i class="icon-mail"></i><a href="mailto:{{ $contactEmail }}">{{ $contactEmail }}</a></li>
+                            @endif
+                            @if ($contactWebsite)
+                                <li><i class="icon-globe2"></i><a href="{{ setting_link('contact_website') }}" target="_blank" rel="noopener noreferrer">{{ $contactWebsite }}</a></li>
+                            @endif
+                            @if (! setting('contact_address') && ! $contactPhone && ! $contactEmail && ! $contactWebsite)
+                                <li class="text-muted">Contact details are being updated. Please use the form to reach us.</li>
+                            @endif
                         </ul>
                     </div>
                     <div class="col-md-6">
