@@ -291,4 +291,4 @@ Tasks:
 - [ ] Branch → PR → merge to master
 
 ## Status
-**Modules 1-7 complete** — Property Detail Page (Module 1), Homepage (Module 2), Properties Listing (Module 3), Search Properties (Module 4), New Properties (Module 5), Dashboard Analytics (Module 6), Admin Sidebar (Module 7) all implemented and tested. All 8 PHPUnit tests pass. Current branch: `feature/module-7-sidebar-navigation`. Master has Modules 1-6 commits from prior merges. Push to GitHub blocked by expired PAT.
+**Modules 21-23 (RBAC, missing models/migrations/pivots/factories, seeder smoke)** committed to `master` (`25b20ac`, `c218616`, `6ede4c9`). Full suite: **45 tests, 102 assertions, OK** (`DB_CONNECTION=sqlite DB_DATABASE=:memory: APP_ENV=testing vendor/bin/phpunit --testdox`). Earlier modules (1,3–5,6–10/12 parts,14–16,18) have commits/tests in history; `.kilo/task.md` checkboxes need a reconciliation pass (some items predate recent work). **Next:** Module 24 — PostgreSQL migration/compat verification against real `pgsql` (migrations/seeders/full tests), then Module 17 sidebar wiring / Module 20 slug regression / Module 26 coverage. Push to GitHub may still require valid PAT.
