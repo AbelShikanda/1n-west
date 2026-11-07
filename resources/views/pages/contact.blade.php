@@ -13,7 +13,8 @@
                     </p>
                 </div>
             </div>
-            <form action="#">
+            <form action="{{ route('contact.store') }}" method="POST">
+                @csrf
                 <div class="row animate-box">
                     <div class="col-md-6">
                         <h3 class="section-title">Our Address</h3>
@@ -27,36 +28,36 @@
                             <li><i class="icon-phone2"></i><a href="tel:+254722729567">+254 722 729 567</a></li>
                             <!-- <li><i class="icon-mail"></i><a href="#">info@1n-west.com</a></li>
                             <li><i class="icon-globe2"></i><a href="#">www.1n-west.com</a></li> -->
-                            <li><i class="icon-mail"></i><a href="{{ route('underConstruction') }}">info@1n-west.com</a></li>
-                            <li><i class="icon-globe2"></i><a href="{{ route('underConstruction') }}">www.1n-west.com</a></li>
+                            <li><i class="icon-mail"></i><a href="mailto:info@1n-west.com">info@1n-west.com</a></li>
+                            <li><i class="icon-globe2"></i><a href="https://www.1n-west.com">www.1n-west.com</a></li>
                         </ul>
                     </div>
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Name">
+                                    <input type="text" class="form-control" placeholder="Name" name="name">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Email">
+                                    <input type="text" class="form-control" placeholder="Email" name="email">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Subject">
+                                    <input type="text" class="form-control" placeholder="Subject" name="subject">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <textarea name="" class="form-control" id="" cols="30" rows="7" placeholder="Message"></textarea>
+                                    <textarea name="" class="form-control" id="" cols="30" rows="7" placeholder="Message" name="message"></textarea>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <!-- <input type="submit" value="Send Message" class="btn btn-primary"> -->
-                                    <a href="{{ route('underConstruction') }}" class="btn btn-primary" >Send Message</a>
+                                    <button type="submit" class="btn btn-primary">Send Message</button>
                                 </div>
                             </div>
                         </div>
