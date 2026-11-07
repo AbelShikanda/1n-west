@@ -37,16 +37,18 @@
                 <div class="col-md-3">
                     <h3 class="section-title">Newsletter</h3>
                     <p>Subscribe for our newsletter</p>
-                    <form class="form-inline" id="fh5co-header-subscribe">
+                    <form class="form-inline" id="fh5co-header-subscribe" action="{{ route('contact.store') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="name" value="Newsletter Subscriber">
+                        <input type="hidden" name="subject" value="Newsletter subscription">
+                        <input type="hidden" name="message" value="Please subscribe this email to the newsletter.">
                         <div class="row">
                             <div class="col-md-12 col-md-offset-0">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="email"
-                                        placeholder="Enter your email" />
-                                        <a href="{{ route('home') }}"><i class="icon-paper-plane"></i></a>
-                                    <!-- <button type="submit" class="btn btn-default">
+                                    <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email" required />
+                                    <button type="submit" class="btn btn-default" title="Subscribe">
                                         <i class="icon-paper-plane"></i>
-                                    </button> -->
+                                    </button>
                                 </div>
                             </div>
                         </div>

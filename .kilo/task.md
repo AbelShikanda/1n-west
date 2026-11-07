@@ -101,24 +101,25 @@ Tasks:
 - [ ] Write feature test: contact form submits successfully
 - [ ] Branch → PR → merge to master
 
-### Module 9: Header Navigation (Public Frontend)
+### Module 9: Header Navigation (Public Frontend) — PARTIAL
 **File:** `resources/views/layouts/header.blade.php`
 
 Tasks:
-- [ ] Fix login link (currently points to `underConstruction`) → real login route
-- [ ] Fix register link (currently points to `underConstruction`) → real register route
-- [ ] Fix Apartments submenu items (Family, etc.) → real property pages
-- [ ] Ensure active states work correctly
-- [ ] Branch → PR → merge to master
+- [x] Login/register links point to real auth routes (`Route::has` guarded)
+- [x] Active states present for main nav
+- [x] Apartments submenu cleaned of commented `underConstruction` Blade routes; points to real property pages
+- [ ] Profile/dropdown behavior depends on auth state (exists); full UX review pending
+- [ ] Branch → PR → merge to master (working directly on master per user request)
 
-### Module 10: Footer (Public Frontend)
+### Module 10: Footer (Public Frontend) — PARTIAL
 **File:** `resources/views/layouts/footer.blade.php`
 
 Tasks:
-- [ ] Replace all `route('underConstruction')` links with real pages
-- [ ] Fix newsletter form to submit to a real endpoint
-- [ ] Fix social media links
-- [ ] Branch → PR → merge to master
+- [x] Core navigation links point to real routes (home/properties/agent/blog/contact)
+- [x] Newsletter form submits to a real endpoint (`contact.store` with CSRF + default fields; email required)
+- [ ] Social media links still placeholders (no configured URLs in app) — kept non-broken
+- [ ] Informational links (FAQ/Terms/Privacy/License) route to home pending dedicated pages
+- [ ] Branch → PR → merge to master (working directly on master per user request)
 
 ### Module 11: Aside / Hero Slider Partial (Public Frontend) — PARTIAL
 **File:** `resources/views/layouts/partials/aside.blade.php`
@@ -292,4 +293,4 @@ Tasks:
 - [ ] Branch → PR → merge to master
 
 ## Status
-**Modules 20–24** done on `master`; **Module 17** partial (admin Contacts wired). **Modules 2 & 11 (partial):** homepage hero dynamic, real feature/staff/contact links, homepage contact form posts to `contact.store`, hero/aside fixes + `HomepageTest`. **PostgreSQL suite:** `DB_CONNECTION=pgsql vendor/bin/phpunit --do-not-cache-result` → **55 tests, 125 assertions, OK** (includes Module 20 + admin contacts + homepage tests). `.kilo/task.md` still needs reconciliation for Modules 1–19. **Next:** Module 9/10 header/footer `underConstruction`/newsletter cleanup, Module 19 verification completeness, Module 25 history-scan (only if authorized), Module 26 coverage. Push may require valid PAT.
+**Modules 2/11 partial, 17 partial, 19 partial, 20/21-24 complete** on `master`. Public homepage now uses dynamic hero/properties + real links/contact form; email verification routes enabled (homepage kept public); admin Contacts CRUD wired. **PostgreSQL suite:** `DB_CONNECTION=pgsql vendor/bin/phpunit --do-not-cache-result` → **57 tests, 129 assertions, OK**. Remaining: header/footer `underConstruction` cleanup (Modules 9/10), full Module 17 admin sections, Module 25 history scan (if authorized), Module 26 coverage, `.kilo/task.md` reconciliation for 1–19. Push may require valid PAT.
