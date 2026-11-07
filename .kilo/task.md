@@ -175,17 +175,17 @@ Tasks:
 - [ ] Write feature tests for dashboard access
 - [ ] Branch → PR → merge to master
 
-### Module 17: Admin Sidebar Navigation (Admin Frontend)
+### Module 17: Admin Sidebar Navigation (Admin Frontend) — PARTIAL
 **File:** `resources/views/admin/layouts/sidebar.blade.php`
 
 Tasks:
-- [ ] Replace all `#` placeholder links with real routes
-- [ ] Wire up: Property Components (Property, Rooms, Baths, Images, Prices)
-- [ ] Wire up: Users (Admins, Staff, Tenants, Contacts)
-- [ ] Wire up: User Management (Roles, Permissions)
-- [ ] Wire up: Blog Components (Articles, Categories, Images, Comments)
-- [ ] Ensure all links resolve to existing controller methods
-- [ ] Branch → PR → merge to master
+- [x] Replace some `#`/dashboard placeholders with real routes (Property Categories, Property Types, Roles, Permissions)
+- [x] Wire up Users > Contacts to admin contacts management (`admin.contacts.*` + controller/views/tests)
+- [ ] Wire up: Property Components (Property, Rooms, Baths, Images, Prices) — controllers/views not yet present
+- [ ] Wire up: Users (Admins, Staff, Tenants)
+- [ ] Wire up: Blog Components (Articles, Categories, Images, Comments) — admin CRUD not yet present
+- [ ] Ensure all links resolve to existing controller methods (avoid dead links)
+- [ ] Branch → PR → merge to master (working directly on master per user request)
 
 ### Module 18: Admin Auth (Admin Frontend)
 **Files:** `resources/views/admin/auth/login.blade.php`, `app/Http/Controllers/Admin/Auth/AdminAuthController.php`
@@ -290,4 +290,4 @@ Tasks:
 - [ ] Branch → PR → merge to master
 
 ## Status
-**Modules 21-24** committed to `master` (`25b20ac`, `c218616`, `6ede4c9`, plus Module 24 commit). PostgreSQL (`nnwest`, pgsql) migrations current; **full suite passes on PostgreSQL**: `DB_CONNECTION=pgsql vendor/bin/phpunit --do-not-cache-result` → **45 tests, 102 assertions, OK**. SQLite suite also OK. `.kilo/task.md` still needs a broader reconciliation pass for Modules 1–20. **Next:** Module 20 slug regression test/close, Module 17 admin sidebar wiring (where controllers exist), Module 25 security/config hygiene, Module 26 coverage expansion. Push to GitHub may still require valid PAT.
+**Modules 20–24** done on `master` (commits through `530f992` + follow-ups): RBAC, models/migrations/pivots/factories/seeders, Postgres verification (**45 tests, 102 assertions, OK on pgsql**). **Module 20** closed with `SlugGenerationTest`. **Module 17** progressed: admin Contacts wired (`admin.contacts.*`, views, `AdminContactsTest`). `.kilo/task.md` still needs reconciliation for Modules 1–19. **Next:** Module 25 `.env` hygiene (no secrets exposed), Module 26 coverage, continue Module 17 as backing controllers land, broader Modules 2/11/19 cleanup. Push may require valid PAT.

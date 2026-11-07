@@ -88,7 +88,7 @@
                         <a class="nav-link pl-3" href="{{ route('dashboard.index') }}"><span class="ml-1 item-text">Tenants</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link pl-3" href="{{ route('dashboard.index') }}"><span class="ml-1 item-text">Contacts</span></a>
+                        <a class="nav-link pl-3" href="{{ route('admin.contacts.index') }}"><span class="ml-1 item-text">Contacts</span></a>
                     </li>
                 </ul>
             </li>
