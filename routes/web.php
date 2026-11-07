@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Admin\Auth\AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PermissionsController;
 use App\Http\Controllers\Admin\PropertyCategoriesController;
 use App\Http\Controllers\Admin\PropertyTypesController;
+use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\PropertyController;
@@ -44,9 +46,14 @@ Route::group(['prefix' => '/admin'], function () {
     Route::get('/login', [AdminAuthController::class, 'getLogin'])->name('getLogin');
     Route::post('/login', [AdminAuthController::class, 'postLogin'])->name('postLogin');
     Route::post('/logout', [AdminAuthController::class, 'adminLogout'])->name('adminLogout');
-    Route::resource('dashboard', DashboardController::class)->middleware('adminauth');
-    Route::resource('property-categories', PropertyCategoriesController::class)->middleware('adminauth');
-    Route::resource('property-types', PropertyTypesController::class)->middleware('adminauth');
+
+    Route::middleware('adminauth')->group(function () {
+        Route::resource('dashboard', DashboardController::class);
+        Route::resource('property-categories', PropertyCategoriesController::class);
+        Route::resource('property-types', PropertyTypesController::class);
+        Route::resource('roles', RolesController::class)->middleware('role:Super Admin,admin');
+        Route::resource('permissions', PermissionsController::class)->middleware('role:Super Admin,admin');
+    });
 });
 
 // Route::group(['middleware' => 'adminauth'], function () {

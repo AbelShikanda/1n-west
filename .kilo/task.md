@@ -217,16 +217,17 @@ Tasks:
 - [ ] Test slug generation on existing and new records
 - [ ] Branch → PR → merge to master
 
-### Module 21: Admin RBAC — Roles & Permissions (Backend)
+### Module 21: Admin RBAC — Roles & Permissions (Backend) — COMPLETE
 **File:** `app/Models/Admin.php`, Spatie permission tables
 
 Tasks:
-- [ ] Uncomment `HasRoles` trait in `Admin` model
-- [ ] Seed roles and permissions
-- [ ] Protect admin routes with `role`/`permission` middleware
-- [ ] Add admin UI for managing roles and permissions
-- [ ] Write feature tests for role-based access
-- [ ] Branch → PR → merge to master
+- [x] `HasRoles` trait enabled in `Admin` model
+- [x] Seed roles and permissions (`RolesAndPermissionsSeeder`)
+- [x] Protect admin RBAC routes with `role:Super Admin,admin` middleware (Spatie)
+- [x] Add admin UI for managing roles and permissions (`RolesController`, `PermissionsController`, views)
+- [x] Write feature tests for role-based access (`tests/Feature/RolesPermissionsTest.php`)
+- [x] Super Admin gate bypass in `AuthServiceProvider`
+- [ ] Branch → PR → merge to master (working directly on master per user request)
 
 ### Module 22: Missing Models & Migrations (Database)
 **New models/migrations**

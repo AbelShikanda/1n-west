@@ -99,10 +99,10 @@
                 </a>
                 <ul class="collapse list-unstyled pl-4 w-100" id="chart">
                     <li class="nav-item">
-                        <a class="nav-link pl-3" href="{{ route('dashboard.index') }}"><span class="ml-1 item-text">Roles</span></a>
+                        <a class="nav-link pl-3" href="{{ route('roles.index') }}"><span class="ml-1 item-text">Roles</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link pl-3" href="{{ route('dashboard.index') }}"><span class="ml-1 item-text">Permissions</span></a>
+                        <a class="nav-link pl-3" href="{{ route('permissions.index') }}"><span class="ml-1 item-text">Permissions</span></a>
                     </li>
                 </ul>
             </li>
