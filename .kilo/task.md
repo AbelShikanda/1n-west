@@ -208,14 +208,14 @@ Tasks:
 - [ ] Write feature tests for registration + verification flow
 - [ ] Branch → PR → merge to master
 
-### Module 20: Slug Generation Bug Fix (Database/Models)
+### Module 20: Slug Generation Bug Fix (Database/Models) — COMPLETE
 **Files:** `app/Models/PropertyTypes.php`, `app/Models/PropertyCategories.php`
 
 Tasks:
-- [ ] Fix `getSlugOptions()` to generate from `name` instead of `title`
-- [ ] Ensure `name` column exists (it does in migrations)
-- [ ] Test slug generation on existing and new records
-- [ ] Branch → PR → merge to master
+- [x] `getSlugOptions()` generates from `name` for `PropertyTypes` and `PropertyCategories` (and `BlogCategories`); `Blog` correctly uses `title`
+- [x] `name` column exists in migrations
+- [x] Regression tests: `tests/Unit/SlugGenerationTest.php`
+- [ ] Branch → PR → merge to master (working directly on master per user request)
 
 ### Module 21: Admin RBAC — Roles & Permissions (Backend) — COMPLETE
 **File:** `app/Models/Admin.php`, Spatie permission tables
