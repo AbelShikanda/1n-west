@@ -17,6 +17,14 @@ class DatabaseSeeder extends Seeder
             CreateAdminSeeder::class,
             PropertyCategoriesSeeder::class,
             PropertyTypesSeeder::class,
+            PropertiesSeeder::class,
+            PropertyImagesSeeder::class,
+            BlogCategoriesSeeder::class,
+            BlogsSeeder::class,
+            BlogImagesSeeder::class,
+            ContactsSeeder::class,
+            VisitorDataSeeder::class,
+            VisitorJourneySeeder::class,
         ]);
     }
 }
