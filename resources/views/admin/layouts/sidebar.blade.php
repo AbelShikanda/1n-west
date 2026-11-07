@@ -50,7 +50,7 @@
                 </a>
                 <ul class="collapse list-unstyled pl-4 w-100" id="forms">
                     <li class="nav-item">
-                        <a class="nav-link pl-3" href="{{ route('dashboard.index') }}"><span class="ml-1 item-text">Property</span></a>
+                        <a class="nav-link pl-3" href="{{ route('property-categories.index') }}"><span class="ml-1 item-text">Property Categories</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link pl-3" href="{{ route('dashboard.index') }}"><span class="ml-1 item-text">Rooms</span></a>
