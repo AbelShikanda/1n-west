@@ -62,7 +62,7 @@
                         <a class="nav-link pl-3" href="{{ route('dashboard.index') }}"><span class="ml-1 item-text">Images</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link pl-3" href="{{ route('dashboard.index') }}"><span class="ml-1 item-text">Prices</span></a>
+                        <a class="nav-link pl-3" href="{{ route('property-types.index') }}"><span class="ml-1 item-text">Property Types</span></a>
                     </li>
                 </ul>
             </li>
